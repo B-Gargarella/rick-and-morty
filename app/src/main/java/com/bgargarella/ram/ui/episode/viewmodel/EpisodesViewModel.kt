@@ -89,7 +89,7 @@ class EpisodesViewModel @Inject constructor(
                 _episodesState2.update { prevState ->
                     prevState.copy(
                         isLoading = false,
-                        content = getEpisodesByCharacterUseCase.invoke5(entity?.episodes.orEmpty()),
+                        content = getEpisodesByCharacterUseCase.invoke5(entity.episodes),
                     )
                 }
             }
