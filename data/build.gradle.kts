@@ -25,15 +25,9 @@ android {
     buildTypes {
         debug {
             isMinifyEnabled = false
-            buildConfigField("String", "BASE_URL", "\"https://rickandmortyapi.com/api/\"")
-            buildConfigField("Boolean", "LOG_VERBOSE", "true")
-            buildConfigField("Boolean", "SET_GRAY_STATUS_BAR", "false")
         }
         release {
             isMinifyEnabled = true
-            buildConfigField("String", "BASE_URL", "\"https://rickandmortyapi.com/api/\"")
-            buildConfigField("Boolean", "LOG_VERBOSE", "false")
-            buildConfigField("Boolean", "SET_GRAY_STATUS_BAR", "false")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

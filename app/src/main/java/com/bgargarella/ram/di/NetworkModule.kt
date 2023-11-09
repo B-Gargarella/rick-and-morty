@@ -1,7 +1,7 @@
 package com.bgargarella.ram.di
 
-import com.bgargarella.ram.data.BuildConfig
 import com.bgargarella.ram.data.api.APIService
+import com.bgargarella.ram.domain.BuildConfig
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module

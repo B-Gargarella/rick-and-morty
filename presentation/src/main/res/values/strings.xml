@@ -1,0 +1,39 @@
+<resources>
+    <string name="no_connection_error">There has been an error.\nCheck your internet connection and try again.</string>
+    <string name="unknown_exception_error">Oops, something went wrong!</string>
+    <string name="io_exception_error">Could not reach server, check your internet connection.</string>
+
+    <string name="characters">Characters</string>
+    <string name="character">Character</string>
+    <string name="episodes">Episodes</string>
+    <string name="episode">Episode</string>
+    <string name="locations">Locations</string>
+    <string name="location">Location</string>
+
+    <string name="name">Name</string>
+    <string name="status">Status</string>
+    <string name="species">Species</string>
+    <string name="type">Type</string>
+    <string name="gender">Gender</string>
+    <string name="origin">Origin</string>
+    <string name="dimension">Dimension</string>
+    <string name="code">Code</string>
+    <string name="release_date">Release date</string>
+    <string name="residents">Residents</string>
+
+    <string name="see_all_episodes">See all episodes</string>
+    <string name="see_all_characters">See all characters</string>
+    <string name="see_all_residents">See all residents</string>
+
+    <string name="characters_of">Characters of\n%1$s</string>
+    <string name="character_of">Character of\n%1$s</string>
+    <string name="episodes_of">Episodes of\n%1$s</string>
+    <string name="episode_of">Episode of\n%1$s</string>
+    <string name="locations_of">Locations of\n%1$s</string>
+    <string name="location_of">Location of\n%1$s</string>
+
+    <string name="toolbar_header">%1$s - (ID: %2$d)</string>
+
+    <string name="from_location">From %1$s</string>
+    <string name="lives_in_location">Lives in %1$s</string>
+</resources>

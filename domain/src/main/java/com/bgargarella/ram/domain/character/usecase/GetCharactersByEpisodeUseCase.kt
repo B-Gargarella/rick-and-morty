@@ -1,5 +1,6 @@
 package com.bgargarella.ram.domain.character.usecase
 
+import com.bgargarella.ram.domain.base.model.Result
 import com.bgargarella.ram.domain.base.usecase.GetEntitiesByIdsUseCase
 import com.bgargarella.ram.domain.character.model.Character
 import com.bgargarella.ram.domain.character.repository.CharacterRepository
@@ -11,7 +12,7 @@ class GetCharactersByEpisodeUseCase(
     private val episodeRepository: EpisodeRepository,
 ) : GetEntitiesByIdsUseCase() {
 
-    suspend operator fun invoke(id: Int): Flow<List<Character>> =
+    suspend operator fun invoke(id: Int): Flow<Result<List<Character>>> =
         getEntitiesById(
             getEntity = { episodeRepository.getEpisode(id) },
             mappingAction = { it.characters },

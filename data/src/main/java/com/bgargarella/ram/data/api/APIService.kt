@@ -4,9 +4,6 @@ import com.bgargarella.ram.data.base.model.BaseResponse
 import com.bgargarella.ram.data.character.model.CharacterResponse
 import com.bgargarella.ram.data.episode.model.EpisodeResponse
 import com.bgargarella.ram.data.location.model.LocationResponse
-import com.bgargarella.ram.domain.character.model.Character
-import com.bgargarella.ram.domain.episode.model.Episode
-import com.bgargarella.ram.domain.location.model.Location
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -22,12 +19,12 @@ interface APIService {
     @GET("character/{ids}")
     suspend fun getCharacters(
         @Path("ids") ids: List<Int>,
-    ): Response<List<Character>>
+    ): Response<List<CharacterResponse>>
 
-    @GET("character")
+    @GET("character/{id}")
     suspend fun getCharacter(
-        @Query("id") id: Int,
-    ): Response<Character>
+        @Path("id") id: Int,
+    ): Response<CharacterResponse>
 
     @GET("episode")
     suspend fun getEpisodes(
@@ -37,25 +34,25 @@ interface APIService {
     @GET("episode/{ids}")
     suspend fun getEpisodes(
         @Path("ids") ids: List<Int>,
-    ): Response<List<Episode>>
+    ): Response<List<EpisodeResponse>>
 
-    @GET("episode")
+    @GET("episode/{id}")
     suspend fun getEpisode(
-        @Query("id") id: Int,
-    ): Response<Episode>
+        @Path("id") id: Int,
+    ): Response<EpisodeResponse>
 
     @GET("location")
     suspend fun getLocations(
-        @Query("page") page: Int
+        @Query("page") page: Int,
     ): Response<BaseResponse<LocationResponse>>
 
     @GET("location/{ids}")
     suspend fun getLocations(
         @Path("ids") ids: List<Int>,
-    ): Response<List<Location>>
+    ): Response<List<LocationResponse>>
 
-    @GET("location")
+    @GET("location/{id}")
     suspend fun getLocation(
-        @Query("id") id: Int
-    ): Response<Location>
+        @Path("id") id: Int,
+    ): Response<LocationResponse>
 }

@@ -1,6 +1,6 @@
 package com.bgargarella.ram.data.util
 
-import com.bgargarella.ram.data.BuildConfig
+import com.bgargarella.ram.domain.BuildConfig
 
 fun String.getIdFromCharacter(): Int = getIdFromUrl(this, "character")
 

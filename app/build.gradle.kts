@@ -21,17 +21,21 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildFeatures {
+            buildConfig = true
             compose = true
         }
 
         composeOptions {
-            kotlinCompilerExtensionVersion = "1.5.4"
+            kotlinCompilerExtensionVersion = extra["compose_version"] as String
         }
     }
 
     buildTypes {
-        release {
+        debug {
             isMinifyEnabled = false
+        }
+        release {
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -63,6 +67,11 @@ dependencies {
     ksp("com.google.dagger:hilt-compiler:$daggerHiltVersion")
     // ksp("com.google.dagger:hilt-android-compiler:$daggerHiltVersion")
 
+    val navigationVersion = rootProject.extra["navigation_version"]
+    implementation("androidx.navigation:navigation-compose:$navigationVersion")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+    implementation("androidx.activity:activity-compose:1.8.0")
+
     val retrofitVersion = rootProject.extra["retrofit_version"]
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-moshi:$retrofitVersion")
@@ -79,26 +88,6 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$roomVersion")
     // implementation("androidx.room:room-paging:$roomVersion")
-
-    val navigationVersion = rootProject.extra["navigation_version"]
-    implementation("androidx.navigation:navigation-compose:$navigationVersion")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
-
-    implementation("androidx.paging:paging-compose:${rootProject.extra["paging_version"]}")
-
-    val composeVersion = rootProject.extra["compose_version"]
-    implementation("androidx.activity:activity-compose:1.8.0")
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    // implementation("androidx.compose.ui:ui-graphics:$composeVersion")
-    // implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
-    implementation("androidx.compose.material3:material3:1.1.2")
-
-    // TODO("SACAR ESTO")
-    // debugImplementation("androidx.customview:customview:1.2.0-alpha02")
-    // debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0")
-    debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
-
-    implementation("io.coil-kt:coil-compose:2.5.0")
 
     testImplementation("junit:junit:${rootProject.extra["junit_version"]}")
     androidTestImplementation("androidx.test.ext:junit:${rootProject.extra["ext_junit_version"]}")

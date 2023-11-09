@@ -10,28 +10,25 @@ import com.bgargarella.ram.data.base.repository.BaseRepositoryImpl
 import com.bgargarella.ram.data.db.RamDB
 import com.bgargarella.ram.data.episode.mapper.toEpisode
 import com.bgargarella.ram.data.episode.mapper.toEpisodeModel
+import com.bgargarella.ram.domain.base.model.Result
 import com.bgargarella.ram.domain.episode.model.Episode
 import com.bgargarella.ram.domain.episode.repository.EpisodeRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.transform
 
 class EpisodeRepositoryImpl(
     private val db: RamDB,
     private val service: APIService,
 ) : BaseRepositoryImpl(), EpisodeRepository {
 
-    override fun getEpisode(id: Int): Flow<Episode> =
-        flow {
-            emit(service.getEpisode(id))
-        }
-            .transform { response ->
-                response.body()?.toEpisodeModel()?.let { model ->
-                    db.episodeDao().save(model)
-                    emit(model.toEpisode())
-                }
-            }
+    override fun getEpisode(id: Int): Flow<Result<Episode>> =
+        getEntity(
+            getLocal = { db.episodeDao().get(id) },
+            getRemote = { service.getEpisode(id) },
+            mappingDataAction = { it.toEpisodeModel() },
+            saveLocal = db.episodeDao()::save,
+            mappingDomainAction = { it.toEpisode() },
+        )
 
     @OptIn(ExperimentalPagingApi::class)
     override fun getEpisodes(): Flow<PagingData<Episode>> =

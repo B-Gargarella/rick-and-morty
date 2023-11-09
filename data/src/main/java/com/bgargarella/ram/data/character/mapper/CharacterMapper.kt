@@ -3,10 +3,10 @@ package com.bgargarella.ram.data.character.mapper
 import com.bgargarella.ram.data.character.model.CharacterModel
 import com.bgargarella.ram.data.character.model.CharacterResponse
 import com.bgargarella.ram.data.character.model.CharacterResponse.CharacterLocationEntity
-import com.bgargarella.ram.data.BuildConfig
 import com.bgargarella.ram.data.util.getIdFromEpisode
 import com.bgargarella.ram.data.util.getIdFromLocation
 import com.bgargarella.ram.data.util.getValue
+import com.bgargarella.ram.domain.BuildConfig
 import com.bgargarella.ram.domain.character.model.Character
 import com.bgargarella.ram.domain.character.model.CharacterLocationModel
 

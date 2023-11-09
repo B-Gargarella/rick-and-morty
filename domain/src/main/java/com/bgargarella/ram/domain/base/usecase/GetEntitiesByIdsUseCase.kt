@@ -4,19 +4,33 @@ import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.transform
+import com.bgargarella.ram.domain.base.model.Result
+import com.bgargarella.ram.domain.base.model.Result.EmptyState
+import com.bgargarella.ram.domain.base.model.Result.Offline
+import com.bgargarella.ram.domain.base.model.Result.Unknown
+import com.bgargarella.ram.domain.base.model.Result.Success
+import com.bgargarella.ram.domain.base.model.Result.Loading
 
 open class GetEntitiesByIdsUseCase {
 
     protected suspend fun <T, V> getEntitiesById(
-        getEntity: () -> Flow<T>,
+        getEntity: () -> Flow<Result<T>>,
         mappingAction: (T) -> List<Int>,
         getEntities: suspend (List<Int>) -> List<V>,
-    ): Flow<List<V>> =
+    ): Flow<Result<List<V>>> =
         getEntity()
-            .transform { entity: T ->
-                val ids: List<Int> = mappingAction(entity)
-                val entities: List<V> = getEntities(ids)
-                emit(entities)
+            .transform { result: Result<T> ->
+                when (result) {
+                    is EmptyState -> emit(EmptyState())
+                    is Loading -> emit(Loading())
+                    is Offline -> emit(Offline())
+                    is Unknown -> emit(Unknown(result.message))
+                    is Success -> {
+                        val ids: List<Int> = mappingAction(result.data)
+                        val entities: List<V> = getEntities(ids)
+                        emit(Success(data = entities))
+                    }
+                }
             }
 
     operator fun <T, V : Any> invoke(

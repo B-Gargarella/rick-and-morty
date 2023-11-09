@@ -10,28 +10,25 @@ import com.bgargarella.ram.data.base.repository.BaseRepositoryImpl
 import com.bgargarella.ram.data.character.mapper.toCharacter
 import com.bgargarella.ram.data.character.mapper.toCharacterModel
 import com.bgargarella.ram.data.db.RamDB
+import com.bgargarella.ram.domain.base.model.Result
 import com.bgargarella.ram.domain.character.model.Character
 import com.bgargarella.ram.domain.character.repository.CharacterRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.transform
 
 class CharacterRepositoryImpl(
     private val db: RamDB,
     private val service: APIService,
 ) : BaseRepositoryImpl(), CharacterRepository {
 
-    override fun getCharacter(id: Int): Flow<Character> =
-        flow {
-            emit(service.getCharacter(id))
-        }
-            .transform { response ->
-                response.body()?.toCharacterModel()?.let { model ->
-                    db.characterDao().save(model)
-                    emit(model.toCharacter())
-                }
-            }
+    override fun getCharacter(id: Int): Flow<Result<Character>> =
+        getEntity(
+            getLocal = { db.characterDao().get(id) },
+            getRemote = { service.getCharacter(id) },
+            mappingDataAction = { it.toCharacterModel() },
+            saveLocal = db.characterDao()::save,
+            mappingDomainAction = { it.toCharacter() },
+        )
 
     @OptIn(ExperimentalPagingApi::class)
     override fun getCharacters(): Flow<PagingData<Character>> =
