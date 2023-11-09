@@ -2,13 +2,13 @@ package com.bgargarella.ram.ui.util
 
 import com.bgargarella.ram.R
 import com.bgargarella.ram.data.BuildConfig
-import com.bgargarella.ram.ui.base.model.BaseItem
-import com.bgargarella.ram.ui.base.model.ButtonItem
-import com.bgargarella.ram.ui.base.model.TextItem
 import com.bgargarella.ram.domain.character.model.Character
 import com.bgargarella.ram.domain.character.model.CharacterLocationModel
 import com.bgargarella.ram.domain.episode.model.Episode
 import com.bgargarella.ram.domain.location.model.Location
+import com.bgargarella.ram.ui.base.model.BaseItem
+import com.bgargarella.ram.ui.base.model.ButtonItem
+import com.bgargarella.ram.ui.base.model.TextItem
 
 fun Character.getItemsList(): List<BaseItem> =
     emptySequence<BaseItem>()
@@ -17,7 +17,13 @@ fun Character.getItemsList(): List<BaseItem> =
         .plus(type?.let { info -> TextItem(R.string.type, info) })
         .plus(gender?.let { info -> TextItem(R.string.gender, info) })
         .plus(origin?.let { location -> ButtonItem(R.string.origin, location.name, location.id) })
-        .plus(location?.let { location -> ButtonItem(R.string.location, location.name, location.id) })
+        .plus(location?.let { location ->
+            ButtonItem(
+                R.string.location,
+                location.name,
+                location.id
+            )
+        })
         .filterNotNull()
         .toList()
 
@@ -39,7 +45,7 @@ fun Location.getItemsList(): List<BaseItem> =
 fun List<BaseItem>.filterPreviewScreen(): List<TextItem> =
     filterIsInstance<TextItem>()
 
-fun getEntityItemsTest(): List<Character> =
+fun getCharacterItemsTest(): List<Character> =
     listOf(
         Character(
             id = 1,
@@ -177,5 +183,51 @@ fun getEntityItemsTest(): List<Character> =
                 50,
                 51
             ),
+        )
+    )
+
+fun getLocationItemsTest(): List<Location> =
+    listOf(
+        Location(
+            id = 1,
+            name = "Earth (C-137)",
+            type = "Planet",
+            dimension = "Dimension C-137",
+            residents = listOf(
+                38,
+                45,
+                71,
+                82,
+                83,
+                92,
+                112,
+                114,
+                116,
+                117,
+                120,
+                127,
+                155,
+                169,
+                175,
+                179,
+                186,
+                201,
+                216,
+                239,
+                271,
+                302,
+                303,
+                338,
+                343,
+                356,
+                394,
+            )
+        ),
+        Location(
+            id = 2,
+            name = "Abadango",
+            type = "Cluster",
+            dimension = null,
+            residents = listOf(6),
         )
     )
