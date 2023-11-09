@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.bgargarella.ram.data.location.model.LocationModel
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface LocationDao {
@@ -15,7 +14,7 @@ interface LocationDao {
     fun getAll(): PagingSource<Int, LocationModel>
 
     @Query("SELECT * FROM location WHERE id = :id")
-    fun get(id: Int): Flow<LocationModel>
+    suspend fun get(id: Int): LocationModel
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveAll(characters: List<LocationModel>)

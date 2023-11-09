@@ -6,16 +6,12 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.bgargarella.ram.data.character.model.CharacterModel
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CharacterDao {
 
     @Query("SELECT * FROM character")
     fun getAll(): PagingSource<Int, CharacterModel>
-
-    @Query("SELECT * FROM character WHERE id = :id")
-    fun getTest(id: Int): Flow<CharacterModel?>
 
     @Query("SELECT * FROM character WHERE id = :id")
     suspend fun get(id: Int): CharacterModel

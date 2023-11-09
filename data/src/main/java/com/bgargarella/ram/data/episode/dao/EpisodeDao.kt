@@ -6,8 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.bgargarella.ram.data.episode.model.EpisodeModel
-import com.bgargarella.ram.domain.episode.model.Episode
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface EpisodeDao {
