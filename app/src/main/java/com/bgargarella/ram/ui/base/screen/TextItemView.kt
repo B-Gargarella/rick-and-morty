@@ -1,6 +1,5 @@
 package com.bgargarella.ram.ui.base.screen
 
-import com.bgargarella.ram.ui.util.getEntityItemsTest
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import com.bgargarella.ram.domain.character.model.Character
 import com.bgargarella.ram.ui.base.model.BaseItem
 import com.bgargarella.ram.ui.base.model.TextItem
+import com.bgargarella.ram.ui.util.getCharacterItemsTest
 import com.bgargarella.ram.ui.util.getItemsList
 
 @Composable
@@ -100,7 +100,7 @@ fun TextItemView(info: BaseItem) {
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun TextItemPreview() {
-    val entities: List<Character> = getEntityItemsTest()
+    val entities: List<Character> = getCharacterItemsTest()
     val entity: Character = entities.first()
     val items: List<BaseItem> = entity.getItemsList()
     val item: BaseItem = items.first()
