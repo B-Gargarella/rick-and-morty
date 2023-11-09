@@ -1,14 +1,17 @@
 package com.bgargarella.ram.data.db
 
 import androidx.room.TypeConverter
+import com.bgargarella.ram.data.character.model.CharacterModel
 import com.bgargarella.ram.data.character.model.CharacterResponse
 import com.bgargarella.ram.data.character.model.CharacterResponse.CharacterLocationEntity
-import com.bgargarella.ram.domain.character.model.CharacterLocationModel
-import com.bgargarella.ram.domain.character.model.Character
-import com.bgargarella.ram.data.episode.model.EpisodeResponse
 import com.bgargarella.ram.data.episode.model.EpisodeModel
-import com.bgargarella.ram.data.location.model.LocationResponse
+import com.bgargarella.ram.data.episode.model.EpisodeResponse
 import com.bgargarella.ram.data.location.model.LocationModel
+import com.bgargarella.ram.data.location.model.LocationResponse
+import com.bgargarella.ram.domain.character.model.Character
+import com.bgargarella.ram.domain.character.model.CharacterLocationModel
+import com.bgargarella.ram.domain.episode.model.Episode
+import com.bgargarella.ram.domain.location.model.Location
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -32,19 +35,35 @@ class Converters {
         getAdapter<T>().toJson(value)
 
     @TypeConverter
-    fun jsonToCharacterModel(value: String?): Character? =
+    fun jsonToCharacter(value: String?): Character? =
         value?.let(::jsonToObject)
 
     @TypeConverter
-    fun characterModelToJson(value: Character?): String? =
+    fun characterToJson(value: Character?): String? =
         value?.let(::objectToJson)
 
     @TypeConverter
-    fun jsonToCharacterEntity(value: String?): CharacterResponse? =
+    fun jsonToCharacterModel(value: String?): CharacterModel? =
         value?.let(::jsonToObject)
 
     @TypeConverter
-    fun characterEntityToJson(value: CharacterResponse?): String? =
+    fun characterModelToJson(value: CharacterModel?): String? =
+        value?.let(::objectToJson)
+
+    @TypeConverter
+    fun jsonToCharacterResponse(value: String?): CharacterResponse? =
+        value?.let(::jsonToObject)
+
+    @TypeConverter
+    fun characterResponseToJson(value: CharacterResponse?): String? =
+        value?.let(::objectToJson)
+
+    @TypeConverter
+    fun jsonToEpisode(value: String?): Episode? =
+        value?.let(::jsonToObject)
+
+    @TypeConverter
+    fun episodeToJson(value: Episode?): String? =
         value?.let(::objectToJson)
 
     @TypeConverter
@@ -56,11 +75,19 @@ class Converters {
         value?.let(::objectToJson)
 
     @TypeConverter
-    fun jsonToEpisodeEntity(value: String?): EpisodeResponse? =
+    fun jsonToEpisodeResponse(value: String?): EpisodeResponse? =
         value?.let(::jsonToObject)
 
     @TypeConverter
-    fun episodeEntityToJson(value: EpisodeResponse?): String? =
+    fun episodeResponseToJson(value: EpisodeResponse?): String? =
+        value?.let(::objectToJson)
+
+    @TypeConverter
+    fun jsonToLocation(value: String?): Location? =
+        value?.let(::jsonToObject)
+
+    @TypeConverter
+    fun locationToJson(value: Location?): String? =
         value?.let(::objectToJson)
 
     @TypeConverter
@@ -72,11 +99,11 @@ class Converters {
         value?.let(::objectToJson)
 
     @TypeConverter
-    fun jsonToLocationEntity(value: String?): LocationResponse? =
+    fun jsonToLocationResponse(value: String?): LocationResponse? =
         value?.let(::jsonToObject)
 
     @TypeConverter
-    fun locationEntityToJson(value: LocationResponse?): String? =
+    fun locationResponseToJson(value: LocationResponse?): String? =
         value?.let(::objectToJson)
 
     @TypeConverter
@@ -96,18 +123,18 @@ class Converters {
         value?.let(::objectToJson)
 
     @TypeConverter
-    fun jsonToEpisodeModelList(value: String?): List<Int>? =
+    fun jsonToListIds(value: String?): List<Int>? =
         value?.let(::jsonToObject)
 
     @TypeConverter
-    fun listToEpisodeModelJson(value: List<Int>?): String? =
+    fun listIdsToJson(value: List<Int>?): String? =
         value?.let(::objectToJson)
 
     @TypeConverter
-    fun jsonToEpisodeEntityList(value: String?): List<String>? =
+    fun jsonToEntityList(value: String?): List<String>? =
         value?.let(::jsonToObject)
 
     @TypeConverter
-    fun listToEpisodeEntityJson(value: List<String>?): String? =
+    fun listToEntityJson(value: List<String>?): String? =
         value?.let(::objectToJson)
 }
