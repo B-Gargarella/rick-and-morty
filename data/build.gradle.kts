@@ -49,6 +49,7 @@ android {
     kotlinOptions {
         jvmTarget = javaVersion.toString()
     }
+    buildToolsVersion = extra["build_tools_version"] as String
 
     ksp {
         arg(k = "room.schemaLocation", v = "$projectDir/schemas")
