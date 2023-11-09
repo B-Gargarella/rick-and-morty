@@ -12,7 +12,6 @@ import androidx.paging.RemoteMediator.MediatorResult.Success
 import androidx.room.withTransaction
 import com.bgargarella.ram.data.api.APIService
 import com.bgargarella.ram.data.base.model.BaseResponse
-import com.bgargarella.ram.data.base.model.BaseResponse.Info
 import com.bgargarella.ram.data.character.mapper.toCharacterModel
 import com.bgargarella.ram.data.character.model.CharacterModel
 import com.bgargarella.ram.data.character.model.CharacterResponse
@@ -26,7 +25,6 @@ import java.net.SocketTimeoutException
 class CharacterRemoteMediator(
     private val db: RamDB,
     private val service: APIService,
-    private val ids: List<Int>? = null,
 ) : RemoteMediator<Int, CharacterModel>() {
 
     private val STARTING_PAGE_INDEX: Int = 1
@@ -40,10 +38,7 @@ class CharacterRemoteMediator(
     ): MediatorResult {
         val page = when (loadType) {
             REFRESH -> STARTING_PAGE_INDEX
-            PREPEND -> {
-                return Success(endOfPaginationReached = false)
-            }
-
+            PREPEND -> return Success(endOfPaginationReached = false)
             APPEND -> {
                 val lastItem = state.lastItemOrNull()
                 if (lastItem == null) {
@@ -55,26 +50,14 @@ class CharacterRemoteMediator(
         }
 
         return try {
-            val entities: List<CharacterResponse>
-            val endOfPaginationReached: Boolean
+            val response: Response<BaseResponse<CharacterResponse>> =
+                service.getCharacters(page = page)
 
-            if (ids.isNullOrEmpty()) {
-                val pagedResponse: Response<BaseResponse<CharacterResponse>> =
-                    service.getCharacters(page = page)
+            val body: BaseResponse<CharacterResponse>? = response.body()
 
-                val pagedBody: BaseResponse<CharacterResponse>? = pagedResponse.body()
+            val entities: List<CharacterResponse> = body?.results.orEmpty()
 
-                entities = pagedBody?.results.orEmpty()
-
-                endOfPaginationReached = pagedBody?.info?.next == null
-            } else {
-                val notPagedResponse: Response<List<CharacterResponse>> =
-                    service.getCharacters(ids = ids)
-
-                entities = notPagedResponse.body().orEmpty()
-
-                endOfPaginationReached = true
-            }
+            val endOfPaginationReached: Boolean = body?.info?.next == null
 
             db.withTransaction {
                 db.characterDao().apply {

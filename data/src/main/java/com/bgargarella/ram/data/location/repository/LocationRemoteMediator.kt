@@ -12,7 +12,6 @@ import androidx.paging.RemoteMediator.MediatorResult.Success
 import androidx.room.withTransaction
 import com.bgargarella.ram.data.api.APIService
 import com.bgargarella.ram.data.base.model.BaseResponse
-import com.bgargarella.ram.data.base.model.BaseResponse.Info
 import com.bgargarella.ram.data.db.RamDB
 import com.bgargarella.ram.data.location.mapper.toLocationModel
 import com.bgargarella.ram.data.location.model.LocationModel
@@ -26,8 +25,9 @@ import java.net.SocketTimeoutException
 class LocationRemoteMediator(
     private val db: RamDB,
     private val service: APIService,
-    private val ids: List<Int>? = null,
 ) : RemoteMediator<Int, LocationModel>() {
+
+    private val STARTING_PAGE_INDEX: Int = 1
 
     override suspend fun initialize(): InitializeAction =
         InitializeAction.LAUNCH_INITIAL_REFRESH
@@ -36,39 +36,33 @@ class LocationRemoteMediator(
         loadType: LoadType,
         state: PagingState<Int, LocationModel>
     ): MediatorResult {
-        return try {
-            val loadKey = when (loadType) {
-                REFRESH -> 1
-                PREPEND -> return Success(endOfPaginationReached = true)
-                APPEND -> {
-                    val lastItem = state.lastItemOrNull()
-                    if (lastItem == null) {
-                        1
-                    } else {
-                        (lastItem.id / state.config.pageSize) + 1
-                    }
+        val page = when (loadType) {
+            REFRESH -> STARTING_PAGE_INDEX
+            PREPEND -> return Success(endOfPaginationReached = false)
+            APPEND -> {
+                val lastItem = state.lastItemOrNull()
+                if (lastItem == null) {
+                    STARTING_PAGE_INDEX
+                } else {
+                    (lastItem.id / state.config.pageSize) + 1
                 }
             }
+        }
 
+        return try {
             val response: Response<BaseResponse<LocationResponse>> =
-                if (ids.isNullOrEmpty()) {
-                    service.getLocations(page = loadKey)
-                } else {
-                    service.getLocations(ids = ids, page = loadKey)
-                }
+                service.getLocations(page = page)
 
             val body: BaseResponse<LocationResponse>? = response.body()
-            val info: Info? = body?.info
-            val endOfPaginationReached: Boolean = info?.next == null
 
-            val entities: List<LocationModel> =
-                body?.results.orEmpty().map { it.toLocationModel() }
+            val entities: List<LocationResponse> = body?.results.orEmpty()
+
+            val endOfPaginationReached: Boolean = body?.info?.next == null
 
             db.withTransaction {
-                if (loadType == REFRESH) {
-                    db.locationDao().deleteAll()
+                db.locationDao().apply {
+                    saveAll(entities.map { it.toLocationModel() })
                 }
-                db.locationDao().saveAll(entities)
             }
 
             Success(endOfPaginationReached = endOfPaginationReached)
