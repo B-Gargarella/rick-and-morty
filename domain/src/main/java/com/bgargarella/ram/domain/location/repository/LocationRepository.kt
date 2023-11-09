@@ -10,5 +10,5 @@ interface LocationRepository {
 
     fun getLocations(): Flow<PagingData<Location>>
 
-    fun getLocationsByIds(ids: List<Int>): Flow<PagingData<Location>>
+    suspend fun getLocations(ids: List<Int>): List<Location>
 }

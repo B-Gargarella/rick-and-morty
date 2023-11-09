@@ -1,6 +1,5 @@
 package com.bgargarella.ram.domain.character.usecase
 
-import androidx.paging.PagingData
 import com.bgargarella.ram.domain.base.usecase.GetEntitiesByIdsUseCase
 import com.bgargarella.ram.domain.character.model.Character
 import com.bgargarella.ram.domain.character.repository.CharacterRepository
@@ -12,10 +11,10 @@ class GetCharactersByEpisodeUseCase(
     private val episodeRepository: EpisodeRepository,
 ) : GetEntitiesByIdsUseCase() {
 
-    operator fun invoke(id: Int): Flow<PagingData<Character>> =
-        invoke(
-            getLocalModel = { episodeRepository.getEpisode(id) },
-            getIds = { it.characters },
-            getRemoteEntities = characterRepository::getCharacters,
+    suspend operator fun invoke(id: Int): Flow<List<Character>> =
+        getEntitiesById(
+            getEntity = { episodeRepository.getEpisode(id) },
+            mappingAction = { it.characters },
+            getEntities = characterRepository::getCharacters,
         )
 }

@@ -10,7 +10,5 @@ interface EpisodeRepository {
 
     fun getEpisodes(): Flow<PagingData<Episode>>
 
-    fun getEpisodes(ids: List<Int>): Flow<PagingData<Episode>>
-
-    suspend fun getEpisodesTest(ids: List<Int>): List<Episode>
+    suspend fun getEpisodes(ids: List<Int>): List<Episode>
 }

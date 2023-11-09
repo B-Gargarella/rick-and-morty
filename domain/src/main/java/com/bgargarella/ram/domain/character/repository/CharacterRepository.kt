@@ -8,9 +8,7 @@ interface CharacterRepository {
 
     fun getCharacter(id: Int): Flow<Character>
 
-    fun getCharacterTest(id: Int): Flow<Character?>
-
     fun getCharacters(): Flow<PagingData<Character>>
 
-    fun getCharacters(ids: List<Int>): Flow<PagingData<Character>>
+    suspend fun getCharacters(ids: List<Int>): List<Character>
 }

@@ -7,22 +7,19 @@ import kotlinx.coroutines.flow.transform
 
 open class GetEntitiesByIdsUseCase {
 
-    operator fun <T, V : Any> invoke(
-        getLocalModel: () -> Flow<T>,
-        getIds: (T) -> List<Int>,
-        getRemoteEntities: (List<Int>) -> Flow<PagingData<V>>,
-    ): Flow<PagingData<V>> =
-        getLocalModel()
-            .transform { model: T ->
-                val ids: List<Int> = getIds(model)
-                emit(ids)
-            }
-            .transform { ids ->
-                val pagingData: Flow<PagingData<V>> = getRemoteEntities(ids)
-                emit(pagingData.first())
+    protected suspend fun <T, V> getEntitiesById(
+        getEntity: () -> Flow<T>,
+        mappingAction: (T) -> List<Int>,
+        getEntities: suspend (List<Int>) -> List<V>,
+    ): Flow<List<V>> =
+        getEntity()
+            .transform { entity: T ->
+                val ids: List<Int> = mappingAction(entity)
+                val entities: List<V> = getEntities(ids)
+                emit(entities)
             }
 
-    fun <T, V : Any> invokeTest(
+    operator fun <T, V : Any> invoke(
         getLocalModel: () -> Flow<T>,
         getIds: (T) -> List<Int>,
         getRemoteEntities: (List<Int>) -> Flow<PagingData<V>>,
