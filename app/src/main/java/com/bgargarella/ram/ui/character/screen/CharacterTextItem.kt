@@ -20,10 +20,10 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bgargarella.ram.domain.character.model.Character
 import com.bgargarella.ram.ui.base.model.BaseItem
 import com.bgargarella.ram.ui.base.screen.RowDivider
-import com.bgargarella.ram.domain.character.model.Character
-import com.bgargarella.ram.ui.util.getEntityItemsTest
+import com.bgargarella.ram.ui.util.getCharacterItemsTest
 import com.bgargarella.ram.ui.util.getItemsList
 
 @Composable
@@ -86,7 +86,7 @@ fun CharacterTextItem(
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun CharacterTextItemPreview() {
-    val entities: List<Character> = getEntityItemsTest()
+    val entities: List<Character> = getCharacterItemsTest()
     val entity: Character = entities.first()
     val items: List<BaseItem> = entity.getItemsList()
     val item: BaseItem = items.first()

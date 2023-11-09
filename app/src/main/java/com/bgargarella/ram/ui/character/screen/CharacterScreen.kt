@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,16 +30,14 @@ import com.bgargarella.ram.ui.base.model.TextItem
 import com.bgargarella.ram.ui.base.screen.ButtonItemView
 import com.bgargarella.ram.ui.base.screen.RowDivider
 import com.bgargarella.ram.ui.base.screen.StateDetailView
-import com.bgargarella.ram.ui.base.screen.StateView
 import com.bgargarella.ram.ui.base.screen.TextItemView
 import com.bgargarella.ram.ui.character.viewmodel.CharacterViewModel
 import com.bgargarella.ram.ui.util.Result
 import com.bgargarella.ram.ui.util.filterPreviewScreen
-import com.bgargarella.ram.ui.util.getEntityItemsTest
+import com.bgargarella.ram.ui.util.getCharacterItemsTest
 import com.bgargarella.ram.ui.util.getItemsList
 import com.bgargarella.ram.ui.util.navigateToEpisodesFromCharacter
 import com.bgargarella.ram.ui.util.navigateToLocation
-import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun CharacterScreen(
@@ -117,7 +114,7 @@ fun CharacterContent(
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun CharacterContentPreview() {
-    val entity = getEntityItemsTest().first()
+    val entity = getCharacterItemsTest().first()
     val navController: NavHostController = rememberNavController()
     CharacterContent(navController = navController, entity = entity)
 }
