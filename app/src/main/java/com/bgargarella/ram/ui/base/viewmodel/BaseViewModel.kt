@@ -1,40 +1,51 @@
 package com.bgargarella.ram.ui.base.viewmodel
 
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.Flow
+import com.bgargarella.ram.ui.base.model.UiState
 import com.bgargarella.ram.ui.util.Result
 import com.bgargarella.ram.ui.util.Result.EmptyState
-import com.bgargarella.ram.ui.util.Result.Loading
-import com.bgargarella.ram.ui.util.Result.Offline
 import com.bgargarella.ram.ui.util.Result.Success
 import com.bgargarella.ram.ui.util.Result.Unknown
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.cancellable
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.update
 
 open class BaseViewModel : ViewModel() {
 
-    /*
-    private val _eventFlow = MutableSharedFlow<UIEvent>()
-    val eventFlow = _eventFlow.asSharedFlow()
-    */
-
-    protected suspend fun <T> Flow<T>.invokeFlow2(
-        uiState: MutableStateFlow<T?>,
+    protected suspend fun <T> Flow<List<T>>.getEntitiesById(
+        uiState: MutableStateFlow<UiState<T>>,
     ) {
         cancellable()
-            .catch { uiState.value = null }
+            .catch {
+                uiState.update { prevState ->
+                    prevState.copy(
+                        isLoading = false,
+                        content = emptyList(),
+                    )
+                }
+            }
             .flowOn(Dispatchers.IO)
-            .collect { result: T? -> uiState.value = result }
+            .collect { state ->
+                uiState.update { prevState ->
+                    prevState.copy(isLoading = true)
+                }
+                uiState.update { prevState ->
+                    prevState.copy(
+                        isLoading = false,
+                        content = state,
+                    )
+                }
+            }
     }
 
     protected suspend fun <T> Flow<T>.invokeFlow(
         uiState: MutableStateFlow<Result<T>>,
     ) {
-            cancellable()
+        cancellable()
             .catch {
                 uiState.value = Unknown(message = it.message.toString())
             }
