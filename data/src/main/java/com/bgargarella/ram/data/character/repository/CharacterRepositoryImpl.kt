@@ -8,12 +8,14 @@ import androidx.paging.map
 import com.bgargarella.ram.data.api.APIService
 import com.bgargarella.ram.data.base.repository.BaseRepositoryImpl
 import com.bgargarella.ram.data.character.mapper.toCharacter
+import com.bgargarella.ram.data.character.mapper.toCharacterModel
 import com.bgargarella.ram.data.db.RamDB
 import com.bgargarella.ram.domain.character.model.Character
 import com.bgargarella.ram.domain.character.repository.CharacterRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.transform
 
 class CharacterRepositoryImpl(
     private val db: RamDB,
@@ -21,26 +23,29 @@ class CharacterRepositoryImpl(
 ) : BaseRepositoryImpl(), CharacterRepository {
 
     override fun getCharacter(id: Int): Flow<Character> =
-        flow { emit(db.characterDao().get(id).toCharacter()) }
-
-    override fun getCharacterTest(id: Int): Flow<Character?> =
-        db.characterDao().getTest(id).map { it?.toCharacter() }
-
-    override fun getCharacters(): Flow<PagingData<Character>> = getPager()
-
-    override fun getCharacters(ids: List<Int>): Flow<PagingData<Character>> = getPager(ids = ids)
+        flow {
+            emit(service.getCharacter(id))
+        }
+            .transform { response ->
+                response.body()?.toCharacterModel()?.let { model ->
+                    db.characterDao().save(model)
+                    emit(model.toCharacter())
+                }
+            }
 
     @OptIn(ExperimentalPagingApi::class)
-    private fun getPager(ids: List<Int>? = null): Flow<PagingData<Character>> =
+    override fun getCharacters(): Flow<PagingData<Character>> =
         Pager(
             config = PagingConfig(pageSize = pageSize),
             remoteMediator = CharacterRemoteMediator(
                 db = db,
                 service = service,
-                ids = ids,
             ),
             pagingSourceFactory = { db.characterDao().getAll() }
         ).flow.map { pagingData ->
             pagingData.map { it.toCharacter() }
         }
+
+    override suspend fun getCharacters(ids: List<Int>): List<Character> =
+        service.getCharacters(ids).body().orEmpty().map { it.toCharacterModel().toCharacter() }
 }

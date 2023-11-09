@@ -33,37 +33,19 @@ class EpisodeRepositoryImpl(
                 }
             }
 
-    override fun getEpisodes(): Flow<PagingData<Episode>> = getPager()
-
-    override fun getEpisodes(ids: List<Int>): Flow<PagingData<Episode>> = getPager(ids)
-
     @OptIn(ExperimentalPagingApi::class)
-    fun getPager(): Flow<PagingData<Episode>> =
-        Pager(
-            config = PagingConfig(pageSize = pageSize),
-            remoteMediator = EpisodePagedRemoteMediator(
-                db = db,
-                service = service,
-            ),
-            pagingSourceFactory = { db.episodeDao().getAll() }
-        ).flow.map { pagingData ->
-            pagingData.map { it.toEpisode() }
-        }
-
-    @OptIn(ExperimentalPagingApi::class)
-    fun getPager(ids: List<Int>): Flow<PagingData<Episode>> =
+    override fun getEpisodes(): Flow<PagingData<Episode>> =
         Pager(
             config = PagingConfig(pageSize = pageSize),
             remoteMediator = EpisodeRemoteMediator(
                 db = db,
                 service = service,
-                ids = ids
             ),
             pagingSourceFactory = { db.episodeDao().getAll() }
         ).flow.map { pagingData ->
             pagingData.map { it.toEpisode() }
         }
 
-    override suspend fun getEpisodesTest(ids: List<Int>): List<Episode> =
+    override suspend fun getEpisodes(ids: List<Int>): List<Episode> =
         service.getEpisodes(ids).body().orEmpty().map { it.toEpisodeModel().toEpisode() }
 }
