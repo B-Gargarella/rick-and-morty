@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -37,13 +38,16 @@ android {
     }
 
     val javaVersion = extra["java_version"] as JavaVersion
+
     compileOptions {
         sourceCompatibility = javaVersion
         targetCompatibility = javaVersion
     }
+
     kotlinOptions {
         jvmTarget = javaVersion.toString()
     }
+
     buildToolsVersion = extra["build_tools_version"] as String
 }
 
@@ -52,25 +56,20 @@ dependencies {
 
     val daggerHiltVersion = rootProject.extra["dagger_hilt_version"]
     implementation("com.google.dagger:hilt-android:$daggerHiltVersion")
-    ksp("com.google.dagger:hilt-compiler:$daggerHiltVersion")
-    // ksp("com.google.dagger:hilt-android-compiler:$daggerHiltVersion")
+    ksp("com.google.dagger:hilt-android-compiler:$daggerHiltVersion")
 
     val navigationVersion = rootProject.extra["navigation_version"]
     implementation("androidx.navigation:navigation-compose:$navigationVersion")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+    implementation("androidx.activity:activity-compose:1.8.0")
 
-    implementation("androidx.paging:paging-compose:${rootProject.extra["paging_version"]}")
+    val pagingVersion = rootProject.extra["paging_version"]
+    implementation("androidx.paging:paging-compose:$pagingVersion")
 
     val composeVersion = rootProject.extra["compose_version"]
 
     implementation("androidx.compose.ui:ui:$composeVersion")
-    // implementation("androidx.compose.ui:ui-graphics:$composeVersion")
-    // implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
     implementation("androidx.compose.material3:material3:1.1.2")
-
-    // TODO("SACAR ESTO")
-    // debugImplementation("androidx.customview:customview:1.2.0-alpha02")
-    // debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0")
     debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
 
     implementation("io.coil-kt:coil-compose:2.5.0")
