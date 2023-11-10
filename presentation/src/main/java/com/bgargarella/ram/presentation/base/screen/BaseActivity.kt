@@ -1,10 +1,9 @@
-package com.bgargarella.ram.ui
+package com.bgargarella.ram.presentation.base.screen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
-import com.bgargarella.ram.presentation.base.screen.MyApp
 import com.bgargarella.ram.presentation.theme.RamAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
