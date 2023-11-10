@@ -57,19 +57,14 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":presentation"))
 
-    // TODO("SACAR ESTO")
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.10.0")
-
     val daggerHiltVersion = rootProject.extra["dagger_hilt_version"]
     implementation("com.google.dagger:hilt-android:$daggerHiltVersion")
     ksp("com.google.dagger:hilt-compiler:$daggerHiltVersion")
     // ksp("com.google.dagger:hilt-android-compiler:$daggerHiltVersion")
 
-    val navigationVersion = rootProject.extra["navigation_version"]
-    implementation("androidx.navigation:navigation-compose:$navigationVersion")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+    // val navigationVersion = rootProject.extra["navigation_version"]
+    // implementation("androidx.navigation:navigation-compose:$navigationVersion")
+    // implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
     implementation("androidx.activity:activity-compose:1.8.0")
 
     val retrofitVersion = rootProject.extra["retrofit_version"]
@@ -77,7 +72,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:$retrofitVersion")
 
     val okhttp3Version = rootProject.extra["okhttp3_version"]
-    implementation("com.squareup.okhttp3:okhttp:$okhttp3Version")
+    // implementation("com.squareup.okhttp3:okhttp:$okhttp3Version")
     implementation("com.squareup.okhttp3:logging-interceptor:$okhttp3Version")
 
     implementation("com.squareup.moshi:moshi-kotlin:${rootProject.extra["moshi_kotlin_version"]}")
