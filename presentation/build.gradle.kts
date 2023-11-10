@@ -60,21 +60,28 @@ dependencies {
 
     val navigationVersion = rootProject.extra["navigation_version"]
     implementation("androidx.navigation:navigation-compose:$navigationVersion")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
-    implementation("androidx.activity:activity-compose:1.8.0")
+    val hiltNavigationVersion = rootProject.extra["hilt_navigation_version"]
+    implementation("androidx.hilt:hilt-navigation-compose:$hiltNavigationVersion")
+    val activityVersion = rootProject.extra["activity_version"]
+    implementation("androidx.activity:activity-compose:$activityVersion")
 
     val pagingVersion = rootProject.extra["paging_version"]
     implementation("androidx.paging:paging-compose:$pagingVersion")
 
     val composeVersion = rootProject.extra["compose_version"]
-
     implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.compose.material3:material3:1.1.2")
     debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
 
-    implementation("io.coil-kt:coil-compose:2.5.0")
+    val material3Version = rootProject.extra["material3_version"]
+    implementation("androidx.compose.material3:material3:$material3Version")
 
-    testImplementation("junit:junit:${rootProject.extra["junit_version"]}")
-    androidTestImplementation("androidx.test.ext:junit:${rootProject.extra["ext_junit_version"]}")
-    androidTestImplementation("androidx.test.espresso:espresso-core:${rootProject.extra["espresso_core_version"]}")
+    val coilVersion = rootProject.extra["coil_version"]
+    implementation("io.coil-kt:coil-compose:$coilVersion")
+
+    val junitVersion = rootProject.extra["junit_version"]
+    testImplementation("junit:junit:$junitVersion")
+    val extJunitVersion = rootProject.extra["ext_junit_version"]
+    androidTestImplementation("androidx.test.ext:junit:$extJunitVersion")
+    val espressoCoreVersion = rootProject.extra["espresso_core_version"]
+    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoCoreVersion")
 }
