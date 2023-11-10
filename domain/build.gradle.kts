@@ -1,8 +1,6 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -42,21 +40,20 @@ android {
     }
 
     val javaVersion = extra["java_version"] as JavaVersion
+
     compileOptions {
         sourceCompatibility = javaVersion
         targetCompatibility = javaVersion
     }
+
     kotlinOptions {
         jvmTarget = javaVersion.toString()
     }
+
     buildToolsVersion = extra["build_tools_version"] as String
 }
 
 dependencies {
-    val daggerHiltVersion = rootProject.extra["dagger_hilt_version"]
-    implementation("com.google.dagger:hilt-android:$daggerHiltVersion")
-    ksp("com.google.dagger:hilt-compiler:$daggerHiltVersion")
-
     implementation("androidx.paging:paging-compose:${rootProject.extra["paging_version"]}")
 
     testImplementation("junit:junit:${rootProject.extra["junit_version"]}")
