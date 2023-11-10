@@ -16,9 +16,12 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:${rootProject.extra["android_version"]}")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${rootProject.extra["kotlin_version"]}")
-        classpath("com.google.dagger:hilt-android-gradle-plugin:${rootProject.extra["dagger_hilt_version"]}")
+        val androidVersion = rootProject.extra["android_version"]
+        classpath("com.android.tools.build:gradle:$androidVersion")
+        val kotlinVersion = rootProject.extra["kotlin_version"]
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+        val daggerHiltVersion = rootProject.extra["dagger_hilt_version"]
+        classpath("com.google.dagger:hilt-android-gradle-plugin:$daggerHiltVersion")
     }
 
     tasks.register("clean", Delete::class) {
