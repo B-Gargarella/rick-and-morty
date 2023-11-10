@@ -22,11 +22,6 @@ android {
 
         buildFeatures {
             buildConfig = true
-            compose = true
-        }
-
-        composeOptions {
-            kotlinCompilerExtensionVersion = extra["compose_version"] as String
         }
     }
 
@@ -65,8 +60,6 @@ dependencies {
     val daggerHiltVersion = rootProject.extra["dagger_hilt_version"]
     implementation("com.google.dagger:hilt-android:$daggerHiltVersion")
     ksp("com.google.dagger:hilt-android-compiler:$daggerHiltVersion")
-
-    implementation("androidx.activity:activity-compose:1.8.0")
 
     val retrofitVersion = rootProject.extra["retrofit_version"]
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
