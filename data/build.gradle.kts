@@ -57,7 +57,8 @@ dependencies {
     implementation(project(":domain"))
 
     // TODO("SACAR ESTO")
-    implementation("com.google.android.material:material:1.10.0")
+    val androidMaterialVersion = rootProject.extra["android_material_version"]
+    implementation("com.google.android.material:material:$androidMaterialVersion")
 
     val daggerHiltVersion = rootProject.extra["dagger_hilt_version"]
     implementation("com.google.dagger:hilt-android:$daggerHiltVersion")
@@ -73,7 +74,10 @@ dependencies {
     implementation("androidx.room:room-paging:$roomVersion")
     ksp("androidx.room:room-compiler:$roomVersion")
 
-    testImplementation("junit:junit:${rootProject.extra["junit_version"]}")
-    androidTestImplementation("androidx.test.ext:junit:${rootProject.extra["ext_junit_version"]}")
-    androidTestImplementation("androidx.test.espresso:espresso-core:${rootProject.extra["espresso_core_version"]}")
+    val junitVersion = rootProject.extra["junit_version"]
+    testImplementation("junit:junit:$junitVersion")
+    val extJunitVersion = rootProject.extra["ext_junit_version"]
+    androidTestImplementation("androidx.test.ext:junit:$extJunitVersion")
+    val espressoCoreVersion = rootProject.extra["espresso_core_version"]
+    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoCoreVersion")
 }
