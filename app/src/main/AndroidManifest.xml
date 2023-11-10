@@ -17,7 +17,7 @@
         tools:targetApi="34">
 
         <activity
-            android:name=".ui.BaseActivity"
+            android:name=".presentation.base.screen.BaseActivity"
             android:exported="true"
             android:theme="@style/Theme.RickAndMorty">
 
