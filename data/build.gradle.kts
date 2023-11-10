@@ -71,6 +71,7 @@ dependencies {
     val roomVersion = rootProject.extra["room_version"]
     implementation("androidx.room:room-ktx:$roomVersion")
     implementation("androidx.room:room-paging:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
 
     testImplementation("junit:junit:${rootProject.extra["junit_version"]}")
     androidTestImplementation("androidx.test.ext:junit:${rootProject.extra["ext_junit_version"]}")
