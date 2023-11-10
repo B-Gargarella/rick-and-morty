@@ -54,9 +54,13 @@ android {
 }
 
 dependencies {
-    implementation("androidx.paging:paging-compose:${rootProject.extra["paging_version"]}")
+    val pagingVersion = rootProject.extra["paging_version"]
+    implementation("androidx.paging:paging-compose:$pagingVersion")
 
-    testImplementation("junit:junit:${rootProject.extra["junit_version"]}")
-    androidTestImplementation("androidx.test.ext:junit:${rootProject.extra["ext_junit_version"]}")
-    androidTestImplementation("androidx.test.espresso:espresso-core:${rootProject.extra["espresso_core_version"]}")
+    val junitVersion = rootProject.extra["junit_version"]
+    testImplementation("junit:junit:$junitVersion")
+    val extJunitVersion = rootProject.extra["ext_junit_version"]
+    androidTestImplementation("androidx.test.ext:junit:$extJunitVersion")
+    val espressoCoreVersion = rootProject.extra["espresso_core_version"]
+    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoCoreVersion")
 }
