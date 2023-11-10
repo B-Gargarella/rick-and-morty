@@ -2,7 +2,6 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -36,13 +35,16 @@ android {
     }
 
     val javaVersion = extra["java_version"] as JavaVersion
+
     compileOptions {
         sourceCompatibility = javaVersion
         targetCompatibility = javaVersion
     }
+
     kotlinOptions {
         jvmTarget = javaVersion.toString()
     }
+
     buildToolsVersion = extra["build_tools_version"] as String
 
     ksp {
@@ -59,30 +61,14 @@ dependencies {
 
     val daggerHiltVersion = rootProject.extra["dagger_hilt_version"]
     implementation("com.google.dagger:hilt-android:$daggerHiltVersion")
-    ksp("com.google.dagger:hilt-compiler:$daggerHiltVersion")
-
-    /*
-    val okhttp3Version = rootProject.extra["okhttp3_version"]
-    implementation("com.squareup.okhttp3:okhttp:$okhttp3Version")
-    implementation("com.squareup.okhttp3:logging-interceptor:$okhttp3Version")
-    */
 
     val retrofitVersion = rootProject.extra["retrofit_version"]
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    // implementation("com.squareup.retrofit2:converter-moshi:$retrofitVersion")
 
-    /*
-    val okhttp3Version = rootProject.extra["okhttp3_version"]
-    implementation("com.squareup.okhttp3:okhttp:$okhttp3Version")
-    implementation("com.squareup.okhttp3:logging-interceptor:$okhttp3Version")
-    */
-
-    implementation("com.squareup.moshi:moshi-kotlin:${rootProject.extra["moshi_kotlin_version"]}")
+    val moshiKotlinVersion = rootProject.extra["moshi_kotlin_version"]
+    implementation("com.squareup.moshi:moshi-kotlin:$moshiKotlinVersion")
 
     val roomVersion = rootProject.extra["room_version"]
-    // To use Kotlin Symbol Processing (KSP)
-    ksp("androidx.room:room-compiler:$roomVersion")
-    // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$roomVersion")
     implementation("androidx.room:room-paging:$roomVersion")
 
