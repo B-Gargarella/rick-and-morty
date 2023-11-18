@@ -1,8 +1,5 @@
 package com.bgargarella.ram.presentation.base.screen
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,25 +22,8 @@ import com.bgargarella.ram.presentation.R
 fun SnackbarHostState.ShowNoConnectionError() {
     val message: String = stringResource(id = R.string.no_connection_error)
     LaunchedEffect(Unit) {
-        showSnackbar(
-            message = message
-        )
+        showSnackbar(message = message)
     }
-}
-
-// TODO("CAMBIAR ESTO")
-fun hasConnection(context: Context): Boolean {
-    (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).let { cm ->
-        cm.getNetworkCapabilities(cm.activeNetwork)?.let { capabilities ->
-            return listOf(
-                NetworkCapabilities.TRANSPORT_BLUETOOTH,
-                NetworkCapabilities.TRANSPORT_CELLULAR,
-                NetworkCapabilities.TRANSPORT_ETHERNET,
-                NetworkCapabilities.TRANSPORT_WIFI
-            ).any(capabilities::hasTransport)
-        }
-    }
-    return false
 }
 
 @Composable
