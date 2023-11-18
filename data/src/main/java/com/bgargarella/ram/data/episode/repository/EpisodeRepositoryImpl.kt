@@ -1,5 +1,6 @@
 package com.bgargarella.ram.data.episode.repository
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -13,21 +14,23 @@ import com.bgargarella.ram.data.episode.mapper.toEpisodeModel
 import com.bgargarella.ram.domain.base.model.Result
 import com.bgargarella.ram.domain.episode.model.Episode
 import com.bgargarella.ram.domain.episode.repository.EpisodeRepository
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class EpisodeRepositoryImpl(
+    @ApplicationContext private val context: Context,
     private val db: RamDB,
     private val service: APIService,
-) : BaseRepositoryImpl(), EpisodeRepository {
+) : BaseRepositoryImpl(context), EpisodeRepository {
 
     override fun getEpisode(id: Int): Flow<Result<Episode>> =
         getEntity(
             getLocal = { db.episodeDao().get(id) },
             getRemote = { service.getEpisode(id) },
-            mappingDataAction = { it.toEpisodeModel() },
+            getData = { it.toEpisodeModel() },
             saveLocal = db.episodeDao()::save,
-            mappingDomainAction = { it.toEpisode() },
+            getDomain = { it.toEpisode() },
         )
 
     @OptIn(ExperimentalPagingApi::class)
@@ -43,6 +46,6 @@ class EpisodeRepositoryImpl(
             pagingData.map { it.toEpisode() }
         }
 
-    override suspend fun getEpisodes(ids: List<Int>): List<Episode> =
+    override suspend fun getEpisodes(ids: String): List<Episode> =
         service.getEpisodes(ids).body().orEmpty().map { it.toEpisodeModel().toEpisode() }
 }

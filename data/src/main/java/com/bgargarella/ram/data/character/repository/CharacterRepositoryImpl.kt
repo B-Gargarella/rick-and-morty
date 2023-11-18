@@ -1,5 +1,6 @@
 package com.bgargarella.ram.data.character.repository
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -13,21 +14,23 @@ import com.bgargarella.ram.data.db.RamDB
 import com.bgargarella.ram.domain.base.model.Result
 import com.bgargarella.ram.domain.character.model.Character
 import com.bgargarella.ram.domain.character.repository.CharacterRepository
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class CharacterRepositoryImpl(
+    @ApplicationContext private val context: Context,
     private val db: RamDB,
     private val service: APIService,
-) : BaseRepositoryImpl(), CharacterRepository {
+) : BaseRepositoryImpl(context), CharacterRepository {
 
     override fun getCharacter(id: Int): Flow<Result<Character>> =
         getEntity(
             getLocal = { db.characterDao().get(id) },
             getRemote = { service.getCharacter(id) },
-            mappingDataAction = { it.toCharacterModel() },
+            getData = { it.toCharacterModel() },
             saveLocal = db.characterDao()::save,
-            mappingDomainAction = { it.toCharacter() },
+            getDomain = { it.toCharacter() },
         )
 
     @OptIn(ExperimentalPagingApi::class)
@@ -43,6 +46,6 @@ class CharacterRepositoryImpl(
             pagingData.map { it.toCharacter() }
         }
 
-    override suspend fun getCharacters(ids: List<Int>): List<Character> =
+    override suspend fun getCharacters(ids: String): List<Character> =
         service.getCharacters(ids).body().orEmpty().map { it.toCharacterModel().toCharacter() }
 }

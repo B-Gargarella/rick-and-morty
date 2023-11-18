@@ -9,7 +9,7 @@ fun String.getIdFromEpisode(): Int = getIdFromUrl(this, "episode")
 fun String.getIdFromLocation(): Int = getIdFromUrl(this, "location")
 
 private fun getIdFromUrl(url: String, prefix: String): Int =
-    url.removePrefix("${BuildConfig.BASE_URL}$prefix/").toInt()
+    url.removePrefix("${BuildConfig.BASE_URL}$prefix/").toDouble().toInt()
 
 fun String?.getValue(): String? =
     if (this == "unknown" || isNullOrBlank()) {

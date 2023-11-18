@@ -1,5 +1,6 @@
 package com.bgargarella.ram.data.location.repository
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -13,21 +14,23 @@ import com.bgargarella.ram.data.location.mapper.toLocationModel
 import com.bgargarella.ram.domain.base.model.Result
 import com.bgargarella.ram.domain.location.model.Location
 import com.bgargarella.ram.domain.location.repository.LocationRepository
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class LocationRepositoryImpl(
+    @ApplicationContext private val context: Context,
     private val db: RamDB,
     private val service: APIService,
-) : BaseRepositoryImpl(), LocationRepository {
+) : BaseRepositoryImpl(context), LocationRepository {
 
     override fun getLocation(id: Int): Flow<Result<Location>> =
         getEntity(
             getLocal = { db.locationDao().get(id) },
             getRemote = { service.getLocation(id) },
-            mappingDataAction = { it.toLocationModel() },
+            getData = { it.toLocationModel() },
             saveLocal = db.locationDao()::save,
-            mappingDomainAction = { it.toLocation() },
+            getDomain = { it.toLocation() },
         )
 
     @OptIn(ExperimentalPagingApi::class)
@@ -43,6 +46,6 @@ class LocationRepositoryImpl(
             pagingData.map { it.toLocation() }
         }
 
-    override suspend fun getLocations(ids: List<Int>): List<Location> =
+    override suspend fun getLocations(ids: String): List<Location> =
         service.getLocations(ids).body().orEmpty().map { it.toLocationModel().toLocation() }
 }

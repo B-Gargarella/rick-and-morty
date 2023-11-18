@@ -74,6 +74,13 @@ dependencies {
     implementation("androidx.room:room-paging:$roomVersion")
     ksp("androidx.room:room-compiler:$roomVersion")
 
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
+
+    val mockkVersion = rootProject.extra["mockk_version"]
+    testImplementation("io.mockk:mockk:$mockkVersion")
+    testImplementation("io.mockk:mockk-android:$mockkVersion")
+
     val junitVersion = rootProject.extra["junit_version"]
     testImplementation("junit:junit:$junitVersion")
     val extJunitVersion = rootProject.extra["ext_junit_version"]

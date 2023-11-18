@@ -2,11 +2,12 @@ package com.bgargarella.ram.data.character.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.bgargarella.ram.data.base.model.BaseModel
 import com.bgargarella.ram.domain.character.model.CharacterLocationModel
 
 @Entity(tableName = "character")
 data class CharacterModel(
-    @PrimaryKey val id: Int,
+    @PrimaryKey override val id: Int,
     val name: String,
     val status: String?,
     val species: String?,
@@ -15,4 +16,4 @@ data class CharacterModel(
     val origin: CharacterLocationModel?,
     val location: CharacterLocationModel?,
     val episodes: List<Int>,
-)
+) : BaseModel

@@ -18,7 +18,7 @@ interface APIService {
 
     @GET("character/{ids}")
     suspend fun getCharacters(
-        @Path("ids") ids: List<Int>,
+        @Path("ids") ids: String,
     ): Response<List<CharacterResponse>>
 
     @GET("character/{id}")
@@ -33,7 +33,7 @@ interface APIService {
 
     @GET("episode/{ids}")
     suspend fun getEpisodes(
-        @Path("ids") ids: List<Int>,
+        @Path("ids") ids: String,
     ): Response<List<EpisodeResponse>>
 
     @GET("episode/{id}")
@@ -48,7 +48,7 @@ interface APIService {
 
     @GET("location/{ids}")
     suspend fun getLocations(
-        @Path("ids") ids: List<Int>,
+        @Path("ids") ids: String,
     ): Response<List<LocationResponse>>
 
     @GET("location/{id}")
