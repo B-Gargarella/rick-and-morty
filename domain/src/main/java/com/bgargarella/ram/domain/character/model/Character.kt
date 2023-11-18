@@ -1,7 +1,9 @@
 package com.bgargarella.ram.domain.character.model
 
+import com.bgargarella.ram.domain.base.model.BaseEntity
+
 data class Character(
-    val id: Int,
+    override val id: Int,
     val name: String,
     val avatar: String,
     val status: String?,
@@ -11,4 +13,4 @@ data class Character(
     val origin: CharacterLocationModel?,
     val location: CharacterLocationModel?,
     val episodes: List<Int>,
-)
+) : BaseEntity

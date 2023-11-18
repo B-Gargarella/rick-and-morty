@@ -15,7 +15,7 @@ class GetCharactersByLocationUseCase(
     suspend operator fun invoke(id: Int): Flow<Result<List<Character>>> =
         getEntitiesById(
             getEntity = { locationRepository.getLocation(id) },
-            mappingAction = { it.residents },
+            getIds = { it.residents },
             getEntities = characterRepository::getCharacters,
         )
 }

@@ -15,7 +15,7 @@ class GetEpisodesByCharacterUseCase(
     suspend operator fun invoke(id: Int): Flow<Result<List<Episode>>> =
         getEntitiesById(
             getEntity = { characterRepository.getCharacter(id) },
-            mappingAction = { it.episodes },
+            getIds = { it.episodes },
             getEntities = episodeRepository::getEpisodes,
         )
 }
