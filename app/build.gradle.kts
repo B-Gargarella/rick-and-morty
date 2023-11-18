@@ -74,7 +74,16 @@ dependencies {
     val roomVersion = rootProject.extra["room_version"]
     implementation("androidx.room:room-ktx:$roomVersion")
 
-    testImplementation("junit:junit:${rootProject.extra["junit_version"]}")
-    androidTestImplementation("androidx.test.ext:junit:${rootProject.extra["ext_junit_version"]}")
-    androidTestImplementation("androidx.test.espresso:espresso-core:${rootProject.extra["espresso_core_version"]}")
+    val junitVersion = rootProject.extra["junit_version"]
+    testImplementation("junit:junit:$junitVersion")
+    val extJunitVersion = rootProject.extra["ext_junit_version"]
+    androidTestImplementation("androidx.test.ext:junit:$extJunitVersion")
+    val espressoCoreVersion = rootProject.extra["espresso_core_version"]
+    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoCoreVersion")
+
+    val googleTruthVersion = rootProject.extra["google_truth_version"]
+    testImplementation("com.google.truth:truth:$googleTruthVersion")
+    androidTestImplementation("com.google.truth:truth:$googleTruthVersion")
+
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 }

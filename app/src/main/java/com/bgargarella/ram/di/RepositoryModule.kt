@@ -32,16 +32,25 @@ class RepositoryModule : NetworkModule() {
 
     @Singleton
     @Provides
-    fun providesCharacterRepository(db: RamDB): CharacterRepository =
-        CharacterRepositoryImpl(db = db, service = service)
+    fun providesCharacterRepository(
+        @ApplicationContext context: Context,
+        db: RamDB
+    ): CharacterRepository =
+        CharacterRepositoryImpl(context = context, db = db, service = service)
 
     @Singleton
     @Provides
-    fun providesEpisodeRepository(db: RamDB): EpisodeRepository =
-        EpisodeRepositoryImpl(db = db, service = service)
+    fun providesEpisodeRepository(
+        @ApplicationContext context: Context,
+        db: RamDB
+    ): EpisodeRepository =
+        EpisodeRepositoryImpl(context = context, db = db, service = service)
 
     @Singleton
     @Provides
-    fun providesLocationRepository(db: RamDB): LocationRepository =
-        LocationRepositoryImpl(db = db, service = service)
+    fun providesLocationRepository(
+        @ApplicationContext context: Context,
+        db: RamDB
+    ): LocationRepository =
+        LocationRepositoryImpl(context = context, db = db, service = service)
 }
