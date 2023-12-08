@@ -7,7 +7,7 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.bgargarella.ram.data.api.APIService
-import com.bgargarella.ram.data.base.model.BaseResponse
+import com.bgargarella.ram.data.base.model.BasePageResponse
 import com.bgargarella.ram.data.base.repository.BaseRemoteMediator
 import com.bgargarella.ram.data.db.RamDB
 import com.bgargarella.ram.data.location.mapper.toLocationModel
@@ -29,12 +29,12 @@ class LocationRemoteMediator(
         state: PagingState<Int, LocationModel>,
     ): MediatorResult = loadMediatorResult(loadType, state)
 
-    override suspend fun getResponse(page: Int): Response<BaseResponse<LocationResponse>> =
+    override suspend fun getResponse(page: Int): Response<BasePageResponse<LocationResponse>> =
         service.getLocations(page = page)
 
     override suspend fun saveResponse(
         loadType: LoadType,
-        response: Response<BaseResponse<LocationResponse>>,
+        response: Response<BasePageResponse<LocationResponse>>,
     ) {
         db.apply {
             withTransaction {

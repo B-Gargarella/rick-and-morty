@@ -7,7 +7,6 @@ import android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkCapabilities.TRANSPORT_ETHERNET
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
-import android.util.Log
 import com.bgargarella.ram.domain.base.model.Result
 import com.bgargarella.ram.domain.base.model.Result.EmptyState
 import com.bgargarella.ram.domain.base.model.Result.Loading
@@ -15,7 +14,6 @@ import com.bgargarella.ram.domain.base.model.Result.Offline
 import com.bgargarella.ram.domain.base.model.Result.Success
 import com.bgargarella.ram.domain.base.model.Result.Unknown
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
@@ -27,7 +25,7 @@ open class BaseRepositoryImpl(@ApplicationContext private val context: Context) 
 
     protected val pageSize: Int = 20
 
-    protected fun <T, V, W> getEntity(
+    protected fun <T, V, W : Any> getEntity(
         getLocal: suspend () -> V?,
         getRemote: suspend () -> Response<T>,
         getData: (T) -> V,
@@ -36,41 +34,39 @@ open class BaseRepositoryImpl(@ApplicationContext private val context: Context) 
     ): Flow<Result<W>> =
         flow {
             emit(Loading())
-            delay(1000)
-            /*
-            getLocal()?.let { localValue: V ->
-                val mappedData: W = getDomain.invoke(localValue)
-            }
-            val localValue: V? =
-            */
-            getLocal()?.let(getDomain::invoke)?.let { emit(Success(it)) }
-            if (isActiveNerwork) {
-                try {
-                    val response: Response<T> = getRemote()
-                    if (response.isSuccessful) {
-                        val entity: T? = response.body()
-                        if (entity == null) {
-                            emit(EmptyState())
-                        } else {
-                            saveLocal(getData(entity))
-                            getLocal()?.let(getDomain::invoke)?.let { emit(Success(it)) }
+            val domain: W? = getLocal()?.let(getDomain::invoke)
+            domain?.let { emit(Success(it)) }
+            emit(
+                if (isActiveNerwork) {
+                    try {
+                        getRemote().run {
+                            if (isSuccessful) {
+                                body()
+                                    ?.let(getData::invoke)
+                                    ?.also(saveLocal::invoke)
+                                    ?.let(getDomain::invoke)
+                                    ?.let { Success(data = it) } ?: EmptyState()
+                            } else {
+                                EmptyState()
+                            }
                         }
-                    } else {
-                        emit(EmptyState())
+                    } catch (e: SocketTimeoutException) {
+                        Offline()
+                    } catch (e: UnknownHostException) {
+                        Offline()
+                    } catch (e: IOException) {
+                        Offline()
+                    } catch (e: Exception) {
+                        Unknown(message = e.message.toString())
                     }
-                } catch (e: SocketTimeoutException) {
-                    emit(Offline())
-                } catch (e: UnknownHostException) {
-                    emit(Offline())
-                } catch (e: IOException) {
-                    emit(Offline())
-                } catch (e: Exception) {
-                    Log.e("EXCEPTION", e.toString())
-                    emit(Unknown(message = e.message.toString()))
+                } else {
+                    if (domain == null) {
+                        EmptyState()
+                    } else {
+                        Success(data = domain)
+                    }
                 }
-            } else {
-                emit(Offline())
-            }
+            )
         }
 
     private val isActiveNerwork: Boolean =

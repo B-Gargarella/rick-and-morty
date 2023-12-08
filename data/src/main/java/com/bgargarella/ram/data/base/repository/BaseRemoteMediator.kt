@@ -9,7 +9,7 @@ import androidx.paging.RemoteMediator.MediatorResult
 import androidx.paging.RemoteMediator.MediatorResult.Error
 import androidx.paging.RemoteMediator.MediatorResult.Success
 import com.bgargarella.ram.data.base.model.BaseModel
-import com.bgargarella.ram.data.base.model.BaseResponse
+import com.bgargarella.ram.data.base.model.BasePageResponse
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
@@ -18,29 +18,29 @@ import java.net.UnknownHostException
 
 interface BaseRemoteMediator<T> {
 
-    val STARTING_PAGE_INDEX: Int
+    val startPageIndex: Int
         get() = 1
 
     @OptIn(ExperimentalPagingApi::class)
     suspend fun initialize(): InitializeAction = LAUNCH_INITIAL_REFRESH
 
-    suspend fun getResponse(page: Int): Response<BaseResponse<T>>
+    suspend fun getResponse(page: Int): Response<BasePageResponse<T>>
 
     suspend fun saveResponse(
         loadType: LoadType,
-        response: Response<BaseResponse<T>>,
+        response: Response<BasePageResponse<T>>,
     )
 
-    fun <T, V> Response<BaseResponse<T>>?.getResults(action: (T) -> V): List<V> =
+    fun <T, V> Response<BasePageResponse<T>>?.getResults(action: (T) -> V): List<V> =
         this?.body()?.results.orEmpty().map(action::invoke)
 
-    fun <T> Response<BaseResponse<T>>?.isEndOfPaginationReached(): Boolean =
+    fun <T> Response<BasePageResponse<T>>?.isEndOfPaginationReached(): Boolean =
         this?.body()?.info?.next == null
 
     fun <T : BaseModel> PagingState<Int, T>.getAppendPage(): Int {
         val lastItem = lastItemOrNull()
         return if (lastItem == null) {
-            STARTING_PAGE_INDEX
+            startPageIndex
         } else {
             (lastItem.id / config.pageSize) + 1
         }
@@ -70,7 +70,7 @@ interface BaseRemoteMediator<T> {
         state: PagingState<Int, T>,
     ): MediatorResult {
         val page = when (loadType) {
-            LoadType.REFRESH -> STARTING_PAGE_INDEX
+            LoadType.REFRESH -> startPageIndex
             LoadType.PREPEND -> return Success(endOfPaginationReached = false)
             LoadType.APPEND -> state.getAppendPage()
         }

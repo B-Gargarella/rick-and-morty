@@ -15,10 +15,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-
-        buildFeatures {
-            buildConfig = true
-        }
     }
 
     buildTypes {
@@ -56,10 +52,6 @@ android {
 dependencies {
     implementation(project(":domain"))
 
-    // TODO("SACAR ESTO")
-    val androidMaterialVersion = rootProject.extra["android_material_version"]
-    implementation("com.google.android.material:material:$androidMaterialVersion")
-
     val daggerHiltVersion = rootProject.extra["dagger_hilt_version"]
     implementation("com.google.dagger:hilt-android:$daggerHiltVersion")
 
@@ -73,18 +65,4 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
     implementation("androidx.room:room-paging:$roomVersion")
     ksp("androidx.room:room-compiler:$roomVersion")
-
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
-
-    val mockkVersion = rootProject.extra["mockk_version"]
-    testImplementation("io.mockk:mockk:$mockkVersion")
-    testImplementation("io.mockk:mockk-android:$mockkVersion")
-
-    val junitVersion = rootProject.extra["junit_version"]
-    testImplementation("junit:junit:$junitVersion")
-    val extJunitVersion = rootProject.extra["ext_junit_version"]
-    androidTestImplementation("androidx.test.ext:junit:$extJunitVersion")
-    val espressoCoreVersion = rootProject.extra["espresso_core_version"]
-    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoCoreVersion")
 }

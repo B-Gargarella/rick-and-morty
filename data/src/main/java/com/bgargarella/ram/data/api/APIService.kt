@@ -1,6 +1,6 @@
 package com.bgargarella.ram.data.api
 
-import com.bgargarella.ram.data.base.model.BaseResponse
+import com.bgargarella.ram.data.base.model.BasePageResponse
 import com.bgargarella.ram.data.character.model.CharacterResponse
 import com.bgargarella.ram.data.episode.model.EpisodeResponse
 import com.bgargarella.ram.data.location.model.LocationResponse
@@ -14,7 +14,7 @@ interface APIService {
     @GET("character")
     suspend fun getCharacters(
         @Query("page") page: Int,
-    ): Response<BaseResponse<CharacterResponse>>
+    ): Response<BasePageResponse<CharacterResponse>>
 
     @GET("character/{ids}")
     suspend fun getCharacters(
@@ -29,7 +29,7 @@ interface APIService {
     @GET("episode")
     suspend fun getEpisodes(
         @Query("page") page: Int,
-    ): Response<BaseResponse<EpisodeResponse>>
+    ): Response<BasePageResponse<EpisodeResponse>>
 
     @GET("episode/{ids}")
     suspend fun getEpisodes(
@@ -44,7 +44,7 @@ interface APIService {
     @GET("location")
     suspend fun getLocations(
         @Query("page") page: Int,
-    ): Response<BaseResponse<LocationResponse>>
+    ): Response<BasePageResponse<LocationResponse>>
 
     @GET("location/{ids}")
     suspend fun getLocations(

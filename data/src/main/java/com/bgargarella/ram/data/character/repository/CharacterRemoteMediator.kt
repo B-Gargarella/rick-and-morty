@@ -7,9 +7,9 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.bgargarella.ram.data.api.APIService
-import com.bgargarella.ram.data.base.model.BaseResponse
+import com.bgargarella.ram.data.base.model.BasePageResponse
 import com.bgargarella.ram.data.base.repository.BaseRemoteMediator
-import com.bgargarella.ram.data.character.mapper.toCharacterModel
+import com.bgargarella.ram.data.character.mapper.toModel
 import com.bgargarella.ram.data.character.model.CharacterModel
 import com.bgargarella.ram.data.character.model.CharacterResponse
 import com.bgargarella.ram.data.db.RamDB
@@ -29,12 +29,12 @@ class CharacterRemoteMediator(
         state: PagingState<Int, CharacterModel>,
     ): MediatorResult = loadMediatorResult(loadType, state)
 
-    override suspend fun getResponse(page: Int): Response<BaseResponse<CharacterResponse>> =
+    override suspend fun getResponse(page: Int): Response<BasePageResponse<CharacterResponse>> =
         service.getCharacters(page = page)
 
     override suspend fun saveResponse(
         loadType: LoadType,
-        response: Response<BaseResponse<CharacterResponse>>,
+        response: Response<BasePageResponse<CharacterResponse>>,
     ) {
         db.apply {
             withTransaction {
@@ -42,7 +42,7 @@ class CharacterRemoteMediator(
                     if (loadType == REFRESH) {
                         deleteAll()
                     }
-                    saveAll(response.getResults { it.toCharacterModel() })
+                    saveAll(response.getResults { it.toModel() })
                 }
             }
         }

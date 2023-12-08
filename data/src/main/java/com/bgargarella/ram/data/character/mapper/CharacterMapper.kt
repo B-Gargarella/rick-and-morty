@@ -10,7 +10,7 @@ import com.bgargarella.ram.domain.BuildConfig
 import com.bgargarella.ram.domain.character.model.Character
 import com.bgargarella.ram.domain.character.model.CharacterLocationModel
 
-fun CharacterResponse.toCharacterModel(): CharacterModel =
+fun CharacterResponse.toModel(): CharacterModel =
     CharacterModel(
         id = id,
         name = name,
@@ -23,7 +23,7 @@ fun CharacterResponse.toCharacterModel(): CharacterModel =
         episodes = episode.map { it.getIdFromEpisode() },
     )
 
-fun CharacterModel.toCharacter(): Character =
+fun CharacterModel.toEntity(): Character =
     Character(
         id = id,
         name = name,
