@@ -18,7 +18,6 @@ android {
         consumerProguardFiles("consumer-rules.pro")
 
         buildFeatures {
-            buildConfig = true
             compose = true
         }
 
@@ -60,10 +59,9 @@ dependencies {
 
     val navigationVersion = rootProject.extra["navigation_version"]
     implementation("androidx.navigation:navigation-compose:$navigationVersion")
+
     val hiltNavigationVersion = rootProject.extra["hilt_navigation_version"]
     implementation("androidx.hilt:hilt-navigation-compose:$hiltNavigationVersion")
-    val activityVersion = rootProject.extra["activity_version"]
-    implementation("androidx.activity:activity-compose:$activityVersion")
 
     val pagingVersion = rootProject.extra["paging_version"]
     implementation("androidx.paging:paging-compose:$pagingVersion")
@@ -78,10 +76,6 @@ dependencies {
     val coilVersion = rootProject.extra["coil_version"]
     implementation("io.coil-kt:coil-compose:$coilVersion")
 
-    val junitVersion = rootProject.extra["junit_version"]
-    testImplementation("junit:junit:$junitVersion")
-    val extJunitVersion = rootProject.extra["ext_junit_version"]
-    androidTestImplementation("androidx.test.ext:junit:$extJunitVersion")
-    val espressoCoreVersion = rootProject.extra["espresso_core_version"]
-    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoCoreVersion")
+    val accompanistSystemUiControllerVersion = rootProject.extra["accompanist_systemuicontroller_version"]
+    implementation("com.google.accompanist:accompanist-systemuicontroller:$accompanistSystemUiControllerVersion")
 }
