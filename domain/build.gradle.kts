@@ -24,14 +24,10 @@ android {
         debug {
             isMinifyEnabled = false
             buildConfigField("String", "BASE_URL", "\"https://rickandmortyapi.com/api/\"")
-            buildConfigField("Boolean", "LOG_VERBOSE", "true")
-            buildConfigField("Boolean", "SET_GRAY_STATUS_BAR", "false")
         }
         release {
             isMinifyEnabled = true
             buildConfigField("String", "BASE_URL", "\"https://rickandmortyapi.com/api/\"")
-            buildConfigField("Boolean", "LOG_VERBOSE", "false")
-            buildConfigField("Boolean", "SET_GRAY_STATUS_BAR", "false")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -56,11 +52,4 @@ android {
 dependencies {
     val pagingVersion = rootProject.extra["paging_version"]
     implementation("androidx.paging:paging-compose:$pagingVersion")
-
-    val junitVersion = rootProject.extra["junit_version"]
-    testImplementation("junit:junit:$junitVersion")
-    val extJunitVersion = rootProject.extra["ext_junit_version"]
-    androidTestImplementation("androidx.test.ext:junit:$extJunitVersion")
-    val espressoCoreVersion = rootProject.extra["espresso_core_version"]
-    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoCoreVersion")
 }
