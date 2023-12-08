@@ -31,7 +31,7 @@ import com.bgargarella.ram.presentation.episode.viewmodel.EpisodesViewModel
 import com.bgargarella.ram.presentation.location.screen.LocationScreen
 import com.bgargarella.ram.presentation.location.screen.LocationsPagedScreen
 import com.bgargarella.ram.presentation.location.viewmodel.LocationsViewModel
-import com.bgargarella.ram.presentation.theme.RamAppTheme
+import com.bgargarella.ram.presentation.theme.AppTheme
 
 const val KEY_ID: String = "id"
 const val KEY_CHARACTERS: String = "characters"
@@ -62,7 +62,7 @@ fun MyApp() {
                 canNavigateBack = navController.previousBackStackEntry != null,
                 navigateUp = { navController.navigateUp() }
             )
-        }
+        },
     ) { innerPadding ->
         NavHost(
             navController = navController,
@@ -195,7 +195,7 @@ private fun NavBackStackEntry.SetView(viewAction: @Composable (Int) -> Unit) {
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun LightPreview() {
-    RamAppTheme(darkTheme = false) {
+    AppTheme(darkTheme = false) {
         MyApp()
     }
 }
@@ -203,7 +203,7 @@ fun LightPreview() {
 @Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun DarkPreview() {
-    RamAppTheme(darkTheme = true) {
+    AppTheme(darkTheme = true) {
         MyApp()
     }
 }
