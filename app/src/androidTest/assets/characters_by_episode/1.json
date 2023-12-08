@@ -1,0 +1,508 @@
+[
+  {
+    "id": 1,
+    "name": "Rick Sanchez",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+    "status": "Alive",
+    "species": "Human",
+    "type": null,
+    "gender": "Male",
+    "origin": {
+      "id": 1,
+      "name": "Earth (C-137)",
+      "location": {
+        "id": 3,
+        "name": "Citadel of Ricks",
+        "episodes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51
+        ]
+      }
+    }
+  },
+  {
+    "id": 2,
+    "name": "Morty Smith",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
+    "status": "Alive",
+    "species": "Human",
+    "type": null,
+    "gender": "Male",
+    "origin": null,
+    "location": {
+      "id": 3,
+      "name": "Citadel of Ricks",
+      "episodes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ]
+    }
+  },
+  {
+    "id": 35,
+    "name": "Bepisian",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/35.jpeg",
+    "status": "Alive",
+    "species": "Alien",
+    "type": "Bepisian",
+    "gender": null,
+    "origin": {
+      "id": 11,
+      "name": "Bepis 9",
+      "location": {
+        "id": 11,
+        "name": "Bepis 9",
+        "episodes": [
+          1,
+          11,
+          19,
+          25
+        ]
+      }
+    }
+  },
+  {
+    "id": 38,
+    "name": "Beth Smith",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/38.jpeg",
+    "status": "Alive",
+    "species": "Human",
+    "type": null,
+    "gender": "Female",
+    "origin": {
+      "id": 1,
+      "name": "Earth (C-137)",
+      "location": {
+        "id": 1,
+        "name": "Earth (C-137)",
+        "episodes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          22,
+          51
+        ]
+      }
+    }
+  },
+  {
+    "id": 62,
+    "name": "Canklanker Thom",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/62.jpeg",
+    "status": "Dead",
+    "species": "Alien",
+    "type": "Gromflomite",
+    "gender": "Male",
+    "origin": {
+      "id": 19,
+      "name": "Gromflom Prime",
+      "location": null,
+      "episodes": [
+        1
+      ]
+    }
+  },
+  {
+    "id": 92,
+    "name": "Davin",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/92.jpeg",
+    "status": "Dead",
+    "species": "Human",
+    "type": null,
+    "gender": "Male",
+    "origin": {
+      "id": 1,
+      "name": "Earth (C-137)",
+      "location": {
+        "id": 1,
+        "name": "Earth (C-137)",
+        "episodes": [
+          1,
+          6
+        ]
+      }
+    }
+  },
+  {
+    "id": 127,
+    "name": "Frank Palicky",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/127.jpeg",
+    "status": "Dead",
+    "species": "Human",
+    "type": null,
+    "gender": "Male",
+    "origin": {
+      "id": 1,
+      "name": "Earth (C-137)",
+      "location": {
+        "id": 1,
+        "name": "Earth (C-137)",
+        "episodes": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": 144,
+    "name": "Glenn",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/144.jpeg",
+    "status": "Dead",
+    "species": "Alien",
+    "type": "Gromflomite",
+    "gender": "Male",
+    "origin": null,
+    "location": {
+      "id": 38,
+      "name": "Interdimensional Customs",
+      "episodes": [
+        1
+      ]
+    }
+  },
+  {
+    "id": 158,
+    "name": "Hookah Alien",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/158.jpeg",
+    "status": "Alive",
+    "species": "Alien",
+    "type": "Tuskfish",
+    "gender": null,
+    "origin": null,
+    "location": {
+      "id": 38,
+      "name": "Interdimensional Customs",
+      "episodes": [
+        1
+      ]
+    }
+  },
+  {
+    "id": 175,
+    "name": "Jerry Smith",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/175.jpeg",
+    "status": "Alive",
+    "species": "Human",
+    "type": null,
+    "gender": "Male",
+    "origin": {
+      "id": 1,
+      "name": "Earth (C-137)",
+      "location": {
+        "id": 1,
+        "name": "Earth (C-137)",
+        "episodes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          22
+        ]
+      }
+    }
+  },
+  {
+    "id": 179,
+    "name": "Jessica",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/179.jpeg",
+    "status": "Alive",
+    "species": "Cronenberg",
+    "type": null,
+    "gender": "Female",
+    "origin": {
+      "id": 1,
+      "name": "Earth (C-137)",
+      "location": {
+        "id": 1,
+        "name": "Earth (C-137)",
+        "episodes": [
+          1,
+          4,
+          6
+        ]
+      }
+    }
+  },
+  {
+    "id": 181,
+    "name": "Jessica's Friend",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/181.jpeg",
+    "status": "Alive",
+    "species": "Human",
+    "type": null,
+    "gender": "Female",
+    "origin": {
+      "id": 1,
+      "name": "Earth (C-137)",
+      "location": {
+        "id": 20,
+        "name": "Earth (Replacement Dimension)",
+        "episodes": [
+          1,
+          4,
+          6,
+          11,
+          17,
+          18,
+          25,
+          27
+        ]
+      }
+    }
+  },
+  {
+    "id": 239,
+    "name": "Mr. Goldenfold",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/239.jpeg",
+    "status": "Alive",
+    "species": "Cronenberg",
+    "type": null,
+    "gender": "Male",
+    "origin": {
+      "id": 1,
+      "name": "Earth (C-137)",
+      "location": {
+        "id": 1,
+        "name": "Earth (C-137)",
+        "episodes": [
+          1,
+          2,
+          4,
+          6
+        ]
+      }
+    }
+  },
+  {
+    "id": 249,
+    "name": "Mrs. Sanchez",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/249.jpeg",
+    "status": null,
+    "species": "Human",
+    "type": null,
+    "gender": "Female",
+    "origin": null,
+    "location": null,
+    "episodes": [
+      1,
+      6,
+      14,
+      30
+    ]
+  },
+  {
+    "id": 271,
+    "name": "Principal Vagina",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/271.jpeg",
+    "status": "Alive",
+    "species": "Cronenberg",
+    "type": null,
+    "gender": "Male",
+    "origin": {
+      "id": 1,
+      "name": "Earth (C-137)",
+      "location": {
+        "id": 1,
+        "name": "Earth (C-137)",
+        "episodes": [
+          1,
+          5,
+          6
+        ]
+      }
+    }
+  },
+  {
+    "id": 338,
+    "name": "Summer Smith",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/338.jpeg",
+    "status": "Alive",
+    "species": "Human",
+    "type": null,
+    "gender": "Female",
+    "origin": {
+      "id": 1,
+      "name": "Earth (C-137)",
+      "location": {
+        "id": 1,
+        "name": "Earth (C-137)",
+        "episodes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          22
+        ]
+      }
+    }
+  },
+  {
+    "id": 394,
+    "name": "Davin",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/394.jpeg",
+    "status": "Dead",
+    "species": "Cronenberg",
+    "type": null,
+    "gender": "Male",
+    "origin": {
+      "id": 1,
+      "name": "Earth (C-137)",
+      "location": {
+        "id": 1,
+        "name": "Earth (C-137)",
+        "episodes": [
+          1,
+          6
+        ]
+      }
+    }
+  },
+  {
+    "id": 395,
+    "name": "Greebybobe",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/395.jpeg",
+    "status": "Alive",
+    "species": "Alien",
+    "type": "Greebybobe",
+    "gender": null,
+    "origin": {
+      "id": 68,
+      "name": "Girvonesk"
+    },
+    "location": {
+      "id": 4,
+      "name": "Worldender's lair"
+    },
+    "episodes": [
+      1,
+      11,
+      16,
+      25
+    ]
+  },
+  {
+    "id": 435,
+    "name": "Pripudlian",
+    "avatar": "https://rickandmortyapi.com/api/character/avatar/435.jpeg",
+    "status": "Alive",
+    "species": "Alien",
+    "type": "Pripudlian",
+    "gender": null,
+    "origin": null,
+    "location": {
+      "id": 20,
+      "name": "Earth (Replacement Dimension)"
+    },
+    "episodes": [
+      1,
+      11,
+      19,
+      25
+    ]
+  }
+]
