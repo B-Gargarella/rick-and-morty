@@ -26,14 +26,13 @@ open class GetEntitiesByIdsUseCase {
                     is Loading -> Loading()
                     is Offline -> Offline()
                     is Unknown -> Unknown(result.message)
-                    is Success ->
-                        Success(data =
+                    is Success -> Success(data =
                         getEntities(
                             getIds(result.data)
                                 .map { it.toDouble().toInt() }
                                 .getStringIdsList()
                         )
-                        )
+                    )
                 }
             )
         }
