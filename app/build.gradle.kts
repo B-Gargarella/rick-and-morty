@@ -80,10 +80,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:$extJunitVersion")
     val espressoCoreVersion = rootProject.extra["espresso_core_version"]
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressoCoreVersion")
-
-    val googleTruthVersion = rootProject.extra["google_truth_version"]
-    testImplementation("com.google.truth:truth:$googleTruthVersion")
-    androidTestImplementation("com.google.truth:truth:$googleTruthVersion")
-
-    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    val kotlinxCoroutinesTestVersion = rootProject.extra["kotlinx_coroutines_test_version"]
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesTestVersion")
 }
