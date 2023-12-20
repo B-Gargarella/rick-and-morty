@@ -9,7 +9,7 @@ ext {
     target_sdk_version = 34
 
     // TOOLS VERSIONS
-    dagger_hilt_version = "2.49"
+    dagger_hilt_version = "2.50"
     retrofit_version = "2.9.0"
     okhttp3_version = "4.12.0"
     moshi_kotlin_version = "1.15.0"
