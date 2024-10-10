@@ -1,7 +1,8 @@
 package com.bgargarella.ram
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.bgargarella.ram.data.episode.repository.EpisodeRepositoryImpl
+import com.bgargarella.ram.data.entity.episode.repository.EpisodeRepositoryImpl
+import com.bgargarella.ram.data.util.EPISODE
 import com.bgargarella.ram.domain.episode.model.Episode
 import com.bgargarella.ram.domain.episode.repository.EpisodeRepository
 import com.bgargarella.ram.domain.episode.usecase.GetEpisodeUseCase
@@ -13,30 +14,29 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class EpisodeTest : BaseTest() {
 
-    private lateinit var repository: EpisodeRepository
+    private val repository: EpisodeRepository by lazy {
+        EpisodeRepositoryImpl(
+            context = context,
+            db = db,
+            service = service,
+        )
+    }
 
-    private lateinit var getEpisodesUseCase: GetEpisodesUseCase
-    private lateinit var getEpisodeUseCase: GetEpisodeUseCase
+    private val getEpisodesUseCase: GetEpisodesUseCase by lazy {
+        GetEpisodesUseCase(
+            repository = repository,
+        )
+    }
+
+    private val getEpisodeUseCase: GetEpisodeUseCase by lazy {
+        GetEpisodeUseCase(
+            repository = repository,
+        )
+    }
 
     @Before
     fun setup() {
         baseSetup()
-
-        repository =
-            EpisodeRepositoryImpl(
-                context = context,
-                db = db,
-                service = service,
-            )
-
-        getEpisodesUseCase =
-            GetEpisodesUseCase(
-                repository = repository,
-            )
-        getEpisodeUseCase =
-            GetEpisodeUseCase(
-                repository = repository,
-            )
     }
 
     @Test
@@ -51,7 +51,7 @@ class EpisodeTest : BaseTest() {
 
     private fun getEpisodeUseCaseTest(id: Int) {
         getEpisodeUseCase(id).getObjectResult(
-            prefix = "episode",
+            prefix = EPISODE,
             equalsTo = { equalsTo(it) },
         )
     }
