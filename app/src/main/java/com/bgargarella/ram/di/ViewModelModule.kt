@@ -30,12 +30,12 @@ class ViewModelModule {
     fun providesCharactersViewModel(
         getCharactersUseCase: GetCharactersUseCase,
         getCharactersByEpisodeUseCase: GetCharactersByEpisodeUseCase,
-        getCharactersByLocationUseCase: GetCharactersByLocationUseCase,
+        getCharactersByLocationUseCase: GetCharactersByLocationUseCase
     ): CharactersViewModel =
         CharactersViewModel(
             getCharactersUseCase = getCharactersUseCase,
             getCharactersByEpisodeUseCase = getCharactersByEpisodeUseCase,
-            getCharactersByLocationUseCase = getCharactersByLocationUseCase,
+            getCharactersByLocationUseCase = getCharactersByLocationUseCase
         )
 
     @Singleton
@@ -44,18 +44,18 @@ class ViewModelModule {
         getCharacterUseCase: GetCharacterUseCase
     ): CharacterViewModel =
         CharacterViewModel(
-            getCharacterUseCase = getCharacterUseCase,
+            getCharacterUseCase = getCharacterUseCase
         )
 
     @Singleton
     @Provides
     fun providesEpisodesViewModel(
         getEpisodesUseCase: GetEpisodesUseCase,
-        getEpisodesByCharacterUseCase: GetEpisodesByCharacterUseCase,
+        getEpisodesByCharacterUseCase: GetEpisodesByCharacterUseCase
     ): EpisodesViewModel =
         EpisodesViewModel(
             getEpisodesUseCase = getEpisodesUseCase,
-            getEpisodesByCharacterUseCase = getEpisodesByCharacterUseCase,
+            getEpisodesByCharacterUseCase = getEpisodesByCharacterUseCase
         )
 
     @Singleton
@@ -64,24 +64,24 @@ class ViewModelModule {
         getEpisodeUseCase: GetEpisodeUseCase
     ): EpisodeViewModel =
         EpisodeViewModel(
-            getEpisodeUseCase = getEpisodeUseCase,
+            getEpisodeUseCase = getEpisodeUseCase
         )
 
     @Singleton
     @Provides
     fun providesLocationsViewModel(
-        getLocationsUseCase: GetLocationsUseCase,
+        getLocationsUseCase: GetLocationsUseCase
     ): LocationsViewModel =
         LocationsViewModel(
-            getLocationsUseCase = getLocationsUseCase,
+            getLocationsUseCase = getLocationsUseCase
         )
 
     @Singleton
     @Provides
     fun providesLocationViewModel(
-        getLocationUseCase: GetLocationUseCase,
+        getLocationUseCase: GetLocationUseCase
     ): LocationViewModel =
         LocationViewModel(
-            getLocationUseCase = getLocationUseCase,
+            getLocationUseCase = getLocationUseCase
         )
 }
