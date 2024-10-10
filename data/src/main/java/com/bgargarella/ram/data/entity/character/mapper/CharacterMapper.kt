@@ -1,8 +1,8 @@
-package com.bgargarella.ram.data.character.mapper
+package com.bgargarella.ram.data.entity.character.mapper
 
-import com.bgargarella.ram.data.character.model.CharacterModel
-import com.bgargarella.ram.data.character.model.CharacterResponse
-import com.bgargarella.ram.data.character.model.CharacterResponse.CharacterLocationEntity
+import com.bgargarella.ram.data.entity.character.model.CharacterModel
+import com.bgargarella.ram.data.entity.character.model.CharacterResponse
+import com.bgargarella.ram.data.entity.character.model.CharacterResponse.CharacterLocationEntity
 import com.bgargarella.ram.data.util.getIdFromEpisode
 import com.bgargarella.ram.data.util.getIdFromLocation
 import com.bgargarella.ram.data.util.getValue
@@ -20,7 +20,7 @@ fun CharacterResponse.toModel(): CharacterModel =
         gender = gender.getValue(),
         origin = origin.getCharacterLocation(),
         location = location.getCharacterLocation(),
-        episodes = episode.map { it.getIdFromEpisode() },
+        episodes = episode.map { it.getIdFromEpisode() }
     )
 
 fun CharacterModel.toEntity(): Character =
@@ -34,20 +34,7 @@ fun CharacterModel.toEntity(): Character =
         gender = gender,
         origin = origin,
         location = location,
-        episodes = episodes,
-    )
-
-fun Character.toCharacterModel(): CharacterModel =
-    CharacterModel(
-        id = id,
-        name = name,
-        status = status,
-        species = species,
-        type = type,
-        gender = gender,
-        origin = origin,
-        location = location,
-        episodes = episodes,
+        episodes = episodes
     )
 
 private fun CharacterModel.getAvatar(): String = "${BuildConfig.BASE_URL}character/avatar/$id.jpeg"
@@ -58,6 +45,6 @@ private fun CharacterLocationEntity.getCharacterLocation(): CharacterLocationMod
     } else {
         CharacterLocationModel(
             id = url.getIdFromLocation(),
-            name = name,
+            name = name
         )
     }
