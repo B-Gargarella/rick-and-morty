@@ -5,18 +5,18 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.bgargarella.ram.data.character.dao.CharacterDao
-import com.bgargarella.ram.data.character.model.CharacterModel
-import com.bgargarella.ram.data.episode.dao.EpisodeDao
-import com.bgargarella.ram.data.episode.model.EpisodeModel
-import com.bgargarella.ram.data.location.dao.LocationDao
-import com.bgargarella.ram.data.location.model.LocationModel
+import com.bgargarella.ram.data.entity.character.dao.CharacterDao
+import com.bgargarella.ram.data.entity.character.model.CharacterModel
+import com.bgargarella.ram.data.entity.episode.dao.EpisodeDao
+import com.bgargarella.ram.data.entity.episode.model.EpisodeModel
+import com.bgargarella.ram.data.entity.location.dao.LocationDao
+import com.bgargarella.ram.data.entity.location.model.LocationModel
 
 @Database(
     entities = [
         CharacterModel::class,
         EpisodeModel::class,
-        LocationModel::class,
+        LocationModel::class
     ],
     version = 1,
     exportSchema = true
@@ -40,8 +40,12 @@ abstract class RamDB : RoomDatabase() {
                 instance ?: buildDatabase(context).also { instance = it }
             }
 
-        private fun buildDatabase(appContext: Context): RamDB =
-            Room.databaseBuilder(appContext, RamDB::class.java, "ram_db")
+        private fun buildDatabase(context: Context): RamDB =
+            Room.databaseBuilder(
+                context = context,
+                klass = RamDB::class.java,
+                name = "ram_db"
+            )
                 .fallbackToDestructiveMigration()
                 .build()
     }
