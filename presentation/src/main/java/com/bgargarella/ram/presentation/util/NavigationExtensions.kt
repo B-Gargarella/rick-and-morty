@@ -1,9 +1,9 @@
 package com.bgargarella.ram.presentation.util
 
 import androidx.navigation.NavHostController
-import com.bgargarella.ram.presentation.base.screen.KEY_CHARACTERS
-import com.bgargarella.ram.presentation.base.screen.KEY_EPISODES
-import com.bgargarella.ram.presentation.base.screen.KEY_LOCATIONS
+import com.bgargarella.ram.presentation.base.screen.BaseActivity.Companion.KEY_CHARACTERS
+import com.bgargarella.ram.presentation.base.screen.BaseActivity.Companion.KEY_EPISODES
+import com.bgargarella.ram.presentation.base.screen.BaseActivity.Companion.KEY_LOCATIONS
 
 fun NavHostController.navigateToCharacters() {
     navigate(KEY_CHARACTERS)
