@@ -1,6 +1,6 @@
-package com.bgargarella.ram.data.episode.model
+package com.bgargarella.ram.data.entity.episode.model
 
-import com.bgargarella.ram.data.base.model.BaseResponse
+import com.bgargarella.ram.data.entity.base.model.BaseResponse
 
 data class EpisodeResponse(
     override val id: Int,
