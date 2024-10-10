@@ -36,59 +36,69 @@ import java.io.BufferedReader
 
 open class BaseTest {
 
-    protected val context: Context =
-        ApplicationProvider
-            .getApplicationContext()
+    protected val context: Context by lazy {
+        ApplicationProvider.getApplicationContext()
+    }
 
-    protected val db: RamDB =
+    protected val db: RamDB by lazy {
         Room.inMemoryDatabaseBuilder(
             context,
             RamDB::class.java
         ).allowMainThreadQueries().build()
+    }
 
-    protected val moshi: Moshi =
-        Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
-
-    protected lateinit var service: APIService
-
-    private val instrumentationContext: Context =
+    private val instrumentationContext: Context by lazy {
         InstrumentationRegistry
             .getInstrumentation()
             .context
+    }
 
-    private val dispatcher: TestDispatcher = StandardTestDispatcher()
+    private val dispatcher: TestDispatcher by lazy {
+        StandardTestDispatcher()
+    }
 
-    protected val testScope: TestScope = TestScope(dispatcher)
+    protected val testScope: TestScope by lazy {
+        TestScope(dispatcher)
+    }
+
+    protected val moshi: Moshi by lazy {
+        Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+    }
+
+    private val interceptor: HttpLoggingInterceptor by lazy {
+        HttpLoggingInterceptor().apply {
+            level = if (BuildConfig.DEBUG) BODY else NONE
+        }
+    }
+
+    private val okHttpClient: OkHttpClient by lazy {
+        OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
+    }
+
+    private val factory: MoshiConverterFactory by lazy {
+        MoshiConverterFactory.create(moshi)
+    }
+
+    private val retrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(factory)
+            .build()
+    }
+
+    protected val service: APIService by lazy {
+        retrofit.create(APIService::class.java)
+    }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun baseSetup() {
         Dispatchers.setMain(dispatcher)
-
-        val interceptor: HttpLoggingInterceptor =
-            HttpLoggingInterceptor().apply {
-                level = if (BuildConfig.DEBUG) BODY else NONE
-            }
-
-        val okHttpClient: OkHttpClient =
-            OkHttpClient.Builder()
-                .addInterceptor(interceptor)
-                .build()
-
-        val factory: MoshiConverterFactory =
-            MoshiConverterFactory
-                .create(moshi)
-
-        val retrofit: Retrofit =
-            Retrofit.Builder()
-                .baseUrl(BuildConfig.BASE_URL)
-                .client(okHttpClient)
-                .addConverterFactory(factory)
-                .build()
-
-        service = retrofit.create(APIService::class.java)
     }
 
     protected fun List<Int>.getIdsList(): List<Int> =
