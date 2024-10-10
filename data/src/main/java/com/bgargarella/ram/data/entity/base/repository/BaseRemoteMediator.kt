@@ -1,4 +1,4 @@
-package com.bgargarella.ram.data.base.repository
+package com.bgargarella.ram.data.entity.base.repository
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
@@ -8,8 +8,8 @@ import androidx.paging.RemoteMediator.InitializeAction.LAUNCH_INITIAL_REFRESH
 import androidx.paging.RemoteMediator.MediatorResult
 import androidx.paging.RemoteMediator.MediatorResult.Error
 import androidx.paging.RemoteMediator.MediatorResult.Success
-import com.bgargarella.ram.data.base.model.BaseModel
-import com.bgargarella.ram.data.base.model.BasePageResponse
+import com.bgargarella.ram.data.entity.base.model.BaseModel
+import com.bgargarella.ram.data.entity.base.model.BasePageResponse
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
