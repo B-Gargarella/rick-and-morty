@@ -4,7 +4,7 @@ import com.bgargarella.ram.domain.base.model.BaseEntity
 
 data class Character(
     override val id: Int,
-    val name: String,
+    override val name: String,
     val avatar: String,
     val status: String?,
     val species: String?,
@@ -12,5 +12,5 @@ data class Character(
     val gender: String?,
     val origin: CharacterLocationModel?,
     val location: CharacterLocationModel?,
-    val episodes: List<Int>,
+    val episodes: List<Int>
 ) : BaseEntity
