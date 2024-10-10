@@ -1,11 +1,11 @@
-package com.bgargarella.ram.data.character.dao
+package com.bgargarella.ram.data.entity.character.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.bgargarella.ram.data.character.model.CharacterModel
+import com.bgargarella.ram.data.entity.character.model.CharacterModel
 
 @Dao
 interface CharacterDao {
