@@ -1,16 +1,15 @@
-package com.bgargarella.ram.data.location.repository
+package com.bgargarella.ram.data.entity.location.repository
 
 import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.bgargarella.ram.data.api.APIService
-import com.bgargarella.ram.data.base.repository.BaseRepositoryImpl
+import com.bgargarella.ram.data.entity.base.repository.BaseRepositoryImpl
 import com.bgargarella.ram.data.db.RamDB
-import com.bgargarella.ram.data.location.mapper.toLocation
-import com.bgargarella.ram.data.location.mapper.toLocationModel
+import com.bgargarella.ram.data.entity.location.mapper.toEntity
+import com.bgargarella.ram.data.entity.location.mapper.toModel
 import com.bgargarella.ram.domain.base.model.Result
 import com.bgargarella.ram.domain.location.model.Location
 import com.bgargarella.ram.domain.location.repository.LocationRepository
@@ -28,24 +27,40 @@ class LocationRepositoryImpl(
         getEntity(
             getLocal = { db.locationDao().get(id) },
             getRemote = { service.getLocation(id) },
-            getData = { it.toLocationModel() },
+            getData = { it.toModel() },
             saveLocal = db.locationDao()::save,
-            getDomain = { it.toLocation() },
+            getDomain = { it.toEntity() },
         )
 
     @OptIn(ExperimentalPagingApi::class)
     override fun getLocations(): Flow<PagingData<Location>> =
         Pager(
-            config = PagingConfig(pageSize = pageSize),
+            config = pagingConfig,
             remoteMediator = LocationRemoteMediator(
                 db = db,
                 service = service,
             ),
             pagingSourceFactory = { db.locationDao().getAll() }
         ).flow.map { pagingData ->
-            pagingData.map { it.toLocation() }
+            pagingData.map { it.toEntity() }
         }
 
     override suspend fun getLocations(ids: String): List<Location> =
-        service.getLocations(ids).body().orEmpty().map { it.toLocationModel().toLocation() }
+        getEntities(
+            ids = ids,
+            singleEntity = {
+                service
+                    .getLocation(ids.toInt())
+                    .body()
+                    ?.toModel()
+                    ?.toEntity()
+            },
+            multipleEntities = {
+                service
+                    .getLocations(ids)
+                    .body()
+                    .orEmpty()
+                    .map { it.toModel().toEntity() }
+            }
+        )
 }
