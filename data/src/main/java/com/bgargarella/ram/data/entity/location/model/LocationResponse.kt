@@ -4,8 +4,8 @@ import com.bgargarella.ram.data.entity.base.model.BaseResponse
 
 data class LocationResponse(
     override val id: Int,
-    val name: String,
+    override val name: String,
     val type: String,
     val dimension: String,
-    val residents: List<String>,
+    val residents: List<String>
 ): BaseResponse
