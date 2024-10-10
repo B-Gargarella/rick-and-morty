@@ -1,7 +1,8 @@
 package com.bgargarella.ram
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.bgargarella.ram.data.location.repository.LocationRepositoryImpl
+import com.bgargarella.ram.data.entity.location.repository.LocationRepositoryImpl
+import com.bgargarella.ram.data.util.LOCATION
 import com.bgargarella.ram.domain.location.model.Location
 import com.bgargarella.ram.domain.location.repository.LocationRepository
 import com.bgargarella.ram.domain.location.usecase.GetLocationUseCase
@@ -13,30 +14,29 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class LocationTest : BaseTest() {
 
-    private lateinit var repository: LocationRepository
+    private val repository: LocationRepository by lazy {
+        LocationRepositoryImpl(
+            context = context,
+            db = db,
+            service = service,
+        )
+    }
 
-    private lateinit var getLocationsUseCase: GetLocationsUseCase
-    private lateinit var getLocationUseCase: GetLocationUseCase
+    private val getLocationsUseCase: GetLocationsUseCase by lazy {
+        GetLocationsUseCase(
+            repository = repository,
+        )
+    }
+
+    private val getLocationUseCase: GetLocationUseCase by lazy {
+        GetLocationUseCase(
+            repository = repository,
+        )
+    }
 
     @Before
     fun setup() {
         baseSetup()
-
-        repository =
-            LocationRepositoryImpl(
-                context = context,
-                db = db,
-                service = service,
-            )
-
-        getLocationsUseCase =
-            GetLocationsUseCase(
-                repository = repository,
-            )
-        getLocationUseCase =
-            GetLocationUseCase(
-                repository = repository,
-            )
     }
 
     @Test
@@ -51,7 +51,7 @@ class LocationTest : BaseTest() {
 
     private fun getLocationUseCaseTest(id: Int) {
         getLocationUseCase(id).getObjectResult(
-            prefix = "location",
+            prefix = LOCATION,
             equalsTo = { equalsTo(it) },
         )
     }
