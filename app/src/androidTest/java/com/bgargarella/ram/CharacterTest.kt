@@ -1,7 +1,8 @@
 package com.bgargarella.ram
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.bgargarella.ram.data.character.repository.CharacterRepositoryImpl
+import com.bgargarella.ram.data.entity.character.repository.CharacterRepositoryImpl
+import com.bgargarella.ram.data.util.CHARACTER
 import com.bgargarella.ram.domain.character.model.Character
 import com.bgargarella.ram.domain.character.repository.CharacterRepository
 import com.bgargarella.ram.domain.character.usecase.GetCharacterUseCase
@@ -13,30 +14,29 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class CharacterTest : BaseTest() {
 
-    private lateinit var repository: CharacterRepository
+    private val repository: CharacterRepository by lazy {
+        CharacterRepositoryImpl(
+            context = context,
+            db = db,
+            service = service,
+        )
+    }
 
-    private lateinit var getCharactersUseCase: GetCharactersUseCase
-    private lateinit var getCharacterUseCase: GetCharacterUseCase
+    private val getCharactersUseCase: GetCharactersUseCase by lazy {
+        GetCharactersUseCase(
+            repository = repository
+        )
+    }
+
+    private val getCharacterUseCase: GetCharacterUseCase by lazy {
+        GetCharacterUseCase(
+            repository = repository,
+        )
+    }
 
     @Before
     fun setup() {
         baseSetup()
-
-        repository =
-            CharacterRepositoryImpl(
-                context = context,
-                db = db,
-                service = service,
-            )
-
-        getCharactersUseCase =
-            GetCharactersUseCase(
-                repository = repository
-            )
-        getCharacterUseCase =
-            GetCharacterUseCase(
-                repository = repository,
-            )
     }
 
     @Test
@@ -51,7 +51,7 @@ class CharacterTest : BaseTest() {
 
     private fun getCharacterUseCaseTest(id: Int) {
         getCharacterUseCase(id).getObjectResult(
-            prefix = "character",
+            prefix = CHARACTER,
             equalsTo = { equalsTo(it) },
         )
     }
