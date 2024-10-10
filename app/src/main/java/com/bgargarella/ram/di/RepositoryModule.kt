@@ -2,10 +2,10 @@ package com.bgargarella.ram.di
 
 import android.content.Context
 import com.bgargarella.ram.RAMApplication
-import com.bgargarella.ram.data.character.repository.CharacterRepositoryImpl
+import com.bgargarella.ram.data.entity.character.repository.CharacterRepositoryImpl
 import com.bgargarella.ram.data.db.RamDB
-import com.bgargarella.ram.data.episode.repository.EpisodeRepositoryImpl
-import com.bgargarella.ram.data.location.repository.LocationRepositoryImpl
+import com.bgargarella.ram.data.entity.episode.repository.EpisodeRepositoryImpl
+import com.bgargarella.ram.data.entity.location.repository.LocationRepositoryImpl
 import com.bgargarella.ram.domain.character.repository.CharacterRepository
 import com.bgargarella.ram.domain.episode.repository.EpisodeRepository
 import com.bgargarella.ram.domain.location.repository.LocationRepository
@@ -27,7 +27,7 @@ class RepositoryModule : NetworkModule() {
     @Provides
     @Singleton
     fun providesDatabase(
-        @ApplicationContext context: Context,
+        @ApplicationContext context: Context
     ): RamDB = RamDB.getDatabase(context)
 
     @Singleton
@@ -36,7 +36,11 @@ class RepositoryModule : NetworkModule() {
         @ApplicationContext context: Context,
         db: RamDB
     ): CharacterRepository =
-        CharacterRepositoryImpl(context = context, db = db, service = service)
+        CharacterRepositoryImpl(
+            context = context,
+            db = db,
+            service = service
+        )
 
     @Singleton
     @Provides
@@ -44,7 +48,11 @@ class RepositoryModule : NetworkModule() {
         @ApplicationContext context: Context,
         db: RamDB
     ): EpisodeRepository =
-        EpisodeRepositoryImpl(context = context, db = db, service = service)
+        EpisodeRepositoryImpl(
+            context = context,
+            db = db,
+            service = service
+        )
 
     @Singleton
     @Provides
@@ -52,5 +60,9 @@ class RepositoryModule : NetworkModule() {
         @ApplicationContext context: Context,
         db: RamDB
     ): LocationRepository =
-        LocationRepositoryImpl(context = context, db = db, service = service)
+        LocationRepositoryImpl(
+            context = context,
+            db = db,
+            service = service
+        )
 }
