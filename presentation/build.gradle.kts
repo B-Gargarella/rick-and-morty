@@ -1,6 +1,9 @@
+import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
 }
@@ -21,14 +24,19 @@ android {
             compose = true
         }
 
-        composeOptions {
-            kotlinCompilerExtensionVersion = extra["compose_version"] as String
+        composeCompiler {
+            featureFlags = setOf(
+                ComposeFeatureFlag.StrongSkipping.disabled()
+            )
         }
     }
 
     buildTypes {
-        release {
+        debug {
             isMinifyEnabled = false
+        }
+        release {
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -75,7 +83,4 @@ dependencies {
 
     val coilVersion = rootProject.extra["coil_version"]
     implementation("io.coil-kt:coil-compose:$coilVersion")
-
-    val accompanistSystemUiControllerVersion = rootProject.extra["accompanist_systemuicontroller_version"]
-    implementation("com.google.accompanist:accompanist-systemuicontroller:$accompanistSystemUiControllerVersion")
 }
