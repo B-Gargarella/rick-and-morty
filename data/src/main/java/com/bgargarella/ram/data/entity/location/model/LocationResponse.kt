@@ -1,6 +1,6 @@
-package com.bgargarella.ram.data.location.model
+package com.bgargarella.ram.data.entity.location.model
 
-import com.bgargarella.ram.data.base.model.BaseResponse
+import com.bgargarella.ram.data.entity.base.model.BaseResponse
 
 data class LocationResponse(
     override val id: Int,
