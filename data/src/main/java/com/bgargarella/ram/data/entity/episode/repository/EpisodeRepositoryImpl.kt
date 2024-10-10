@@ -1,16 +1,15 @@
-package com.bgargarella.ram.data.episode.repository
+package com.bgargarella.ram.data.entity.episode.repository
 
 import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.bgargarella.ram.data.api.APIService
-import com.bgargarella.ram.data.base.repository.BaseRepositoryImpl
+import com.bgargarella.ram.data.entity.base.repository.BaseRepositoryImpl
 import com.bgargarella.ram.data.db.RamDB
-import com.bgargarella.ram.data.episode.mapper.toEpisode
-import com.bgargarella.ram.data.episode.mapper.toEpisodeModel
+import com.bgargarella.ram.data.entity.episode.mapper.toEntity
+import com.bgargarella.ram.data.entity.episode.mapper.toModel
 import com.bgargarella.ram.domain.base.model.Result
 import com.bgargarella.ram.domain.episode.model.Episode
 import com.bgargarella.ram.domain.episode.repository.EpisodeRepository
@@ -28,24 +27,40 @@ class EpisodeRepositoryImpl(
         getEntity(
             getLocal = { db.episodeDao().get(id) },
             getRemote = { service.getEpisode(id) },
-            getData = { it.toEpisodeModel() },
+            getData = { it.toModel() },
             saveLocal = db.episodeDao()::save,
-            getDomain = { it.toEpisode() },
+            getDomain = { it.toEntity() },
         )
 
     @OptIn(ExperimentalPagingApi::class)
     override fun getEpisodes(): Flow<PagingData<Episode>> =
         Pager(
-            config = PagingConfig(pageSize = pageSize),
+            config = pagingConfig,
             remoteMediator = EpisodeRemoteMediator(
                 db = db,
                 service = service,
             ),
             pagingSourceFactory = { db.episodeDao().getAll() }
         ).flow.map { pagingData ->
-            pagingData.map { it.toEpisode() }
+            pagingData.map { it.toEntity() }
         }
 
     override suspend fun getEpisodes(ids: String): List<Episode> =
-        service.getEpisodes(ids).body().orEmpty().map { it.toEpisodeModel().toEpisode() }
+        getEntities(
+            ids = ids,
+            singleEntity = {
+                service
+                    .getEpisode(ids.toInt())
+                    .body()
+                    ?.toModel()
+                    ?.toEntity()
+            },
+            multipleEntities = {
+                service
+                    .getEpisodes(ids)
+                    .body()
+                    .orEmpty()
+                    .map { it.toModel().toEntity() }
+            }
+        )
 }

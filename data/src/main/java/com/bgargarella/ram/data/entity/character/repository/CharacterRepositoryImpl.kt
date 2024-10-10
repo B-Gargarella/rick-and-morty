@@ -1,15 +1,14 @@
-package com.bgargarella.ram.data.character.repository
+package com.bgargarella.ram.data.entity.character.repository
 
 import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.bgargarella.ram.data.api.APIService
-import com.bgargarella.ram.data.base.repository.BaseRepositoryImpl
-import com.bgargarella.ram.data.character.mapper.toEntity
-import com.bgargarella.ram.data.character.mapper.toModel
+import com.bgargarella.ram.data.entity.base.repository.BaseRepositoryImpl
+import com.bgargarella.ram.data.entity.character.mapper.toEntity
+import com.bgargarella.ram.data.entity.character.mapper.toModel
 import com.bgargarella.ram.data.db.RamDB
 import com.bgargarella.ram.domain.base.model.Result
 import com.bgargarella.ram.domain.character.model.Character
@@ -36,7 +35,7 @@ class CharacterRepositoryImpl(
     @OptIn(ExperimentalPagingApi::class)
     override fun getCharacters(): Flow<PagingData<Character>> =
         Pager(
-            config = PagingConfig(pageSize = pageSize),
+            config = pagingConfig,
             remoteMediator = CharacterRemoteMediator(
                 db = db,
                 service = service,
@@ -47,5 +46,21 @@ class CharacterRepositoryImpl(
         }
 
     override suspend fun getCharacters(ids: String): List<Character> =
-        service.getCharacters(ids).body().orEmpty().map { it.toModel().toEntity() }
+        getEntities(
+            ids = ids,
+            singleEntity = {
+                service
+                    .getCharacter(ids.toInt())
+                    .body()
+                    ?.toModel()
+                    ?.toEntity()
+            },
+            multipleEntities = {
+                service
+                    .getCharacters(ids)
+                    .body()
+                    .orEmpty()
+                    .map { it.toModel().toEntity() }
+            }
+        )
 }

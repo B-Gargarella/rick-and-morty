@@ -1,4 +1,4 @@
-package com.bgargarella.ram.data.base.repository
+package com.bgargarella.ram.data.entity.base.repository
 
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
@@ -7,6 +7,7 @@ import android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkCapabilities.TRANSPORT_ETHERNET
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
+import androidx.paging.PagingConfig
 import com.bgargarella.ram.domain.base.model.Result
 import com.bgargarella.ram.domain.base.model.Result.EmptyState
 import com.bgargarella.ram.domain.base.model.Result.Loading
@@ -23,7 +24,7 @@ import java.net.UnknownHostException
 
 open class BaseRepositoryImpl(@ApplicationContext private val context: Context) {
 
-    protected val pageSize: Int = 20
+    protected val pagingConfig: PagingConfig = PagingConfig(pageSize = 20)
 
     protected fun <T, V, W : Any> getEntity(
         getLocal: suspend () -> V?,
@@ -80,4 +81,15 @@ open class BaseRepositoryImpl(@ApplicationContext private val context: Context) 
                 ).any(capabilities::hasTransport)
             }
         } ?: false
+
+    protected suspend fun <T> getEntities(
+        ids: String,
+        singleEntity: suspend () -> T?,
+        multipleEntities: suspend () -> List<T>
+    ): List<T> =
+        if (ids.split(",").size == 1) {
+            singleEntity.invoke()?.let(::listOf) ?: emptyList()
+        } else {
+            multipleEntities.invoke()
+        }
 }
