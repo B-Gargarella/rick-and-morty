@@ -1,11 +1,11 @@
-package com.bgargarella.ram.data.episode.dao
+package com.bgargarella.ram.data.entity.episode.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.bgargarella.ram.data.episode.model.EpisodeModel
+import com.bgargarella.ram.data.entity.episode.model.EpisodeModel
 
 @Dao
 interface EpisodeDao {
