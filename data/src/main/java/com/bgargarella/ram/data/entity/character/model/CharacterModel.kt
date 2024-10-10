@@ -1,14 +1,15 @@
-package com.bgargarella.ram.data.character.model
+package com.bgargarella.ram.data.entity.character.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.bgargarella.ram.data.base.model.BaseModel
+import com.bgargarella.ram.data.entity.base.model.BaseModel
+import com.bgargarella.ram.data.util.CHARACTER
 import com.bgargarella.ram.domain.character.model.CharacterLocationModel
 
-@Entity(tableName = "character")
+@Entity(tableName = CHARACTER)
 data class CharacterModel(
     @PrimaryKey override val id: Int,
-    val name: String,
+    override val name: String,
     val status: String?,
     val species: String?,
     val type: String?,
