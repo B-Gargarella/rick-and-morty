@@ -1,11 +1,11 @@
-package com.bgargarella.ram.data.location.dao
+package com.bgargarella.ram.data.entity.location.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.bgargarella.ram.data.location.model.LocationModel
+import com.bgargarella.ram.data.entity.location.model.LocationModel
 
 @Dao
 interface LocationDao {
