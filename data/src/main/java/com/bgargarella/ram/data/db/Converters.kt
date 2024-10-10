@@ -1,13 +1,13 @@
 package com.bgargarella.ram.data.db
 
 import androidx.room.TypeConverter
-import com.bgargarella.ram.data.character.model.CharacterModel
-import com.bgargarella.ram.data.character.model.CharacterResponse
-import com.bgargarella.ram.data.character.model.CharacterResponse.CharacterLocationEntity
-import com.bgargarella.ram.data.episode.model.EpisodeModel
-import com.bgargarella.ram.data.episode.model.EpisodeResponse
-import com.bgargarella.ram.data.location.model.LocationModel
-import com.bgargarella.ram.data.location.model.LocationResponse
+import com.bgargarella.ram.data.entity.character.model.CharacterModel
+import com.bgargarella.ram.data.entity.character.model.CharacterResponse
+import com.bgargarella.ram.data.entity.character.model.CharacterResponse.CharacterLocationEntity
+import com.bgargarella.ram.data.entity.episode.model.EpisodeModel
+import com.bgargarella.ram.data.entity.episode.model.EpisodeResponse
+import com.bgargarella.ram.data.entity.location.model.LocationModel
+import com.bgargarella.ram.data.entity.location.model.LocationResponse
 import com.bgargarella.ram.domain.character.model.Character
 import com.bgargarella.ram.domain.character.model.CharacterLocationModel
 import com.bgargarella.ram.domain.episode.model.Episode
