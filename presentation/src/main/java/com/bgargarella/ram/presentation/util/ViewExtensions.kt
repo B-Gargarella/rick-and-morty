@@ -115,7 +115,7 @@ fun getCharacterItemsTest(): List<Character> =
                 49,
                 50,
                 51
-            ),
+            )
         ),
         Character(
             id = 2,
@@ -182,7 +182,7 @@ fun getCharacterItemsTest(): List<Character> =
                 49,
                 50,
                 51
-            ),
+            )
         )
     )
 
@@ -212,8 +212,8 @@ fun getEpisodeItemsTest(): List<Episode> =
                 338,
                 394,
                 395,
-                435,
-            ),
+                435
+            )
         ),
         Episode(
             id = 2,
@@ -239,9 +239,9 @@ fun getEpisodeItemsTest(): List<Episode> =
                 396,
                 397,
                 398,
-                405,
-            ),
-        ),
+                405
+            )
+        )
     )
 
 fun getLocationItemsTest(): List<Location> =
@@ -278,7 +278,7 @@ fun getLocationItemsTest(): List<Location> =
                 338,
                 343,
                 356,
-                394,
+                394
             )
         ),
         Location(
@@ -286,6 +286,6 @@ fun getLocationItemsTest(): List<Location> =
             name = "Abadango",
             type = "Cluster",
             dimension = null,
-            residents = listOf(6),
+            residents = listOf(6)
         )
     )
