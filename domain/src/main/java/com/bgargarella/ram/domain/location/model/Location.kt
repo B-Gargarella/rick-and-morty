@@ -4,8 +4,8 @@ import com.bgargarella.ram.domain.base.model.BaseEntity
 
 data class Location(
     override val id: Int,
-    val name: String,
+    override val name: String,
     val type: String?,
     val dimension: String?,
-    val residents: List<Int>,
+    val residents: List<Int>
 ) : BaseEntity
