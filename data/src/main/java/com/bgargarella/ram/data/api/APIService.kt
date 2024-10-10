@@ -1,9 +1,12 @@
 package com.bgargarella.ram.data.api
 
-import com.bgargarella.ram.data.base.model.BasePageResponse
-import com.bgargarella.ram.data.character.model.CharacterResponse
-import com.bgargarella.ram.data.episode.model.EpisodeResponse
-import com.bgargarella.ram.data.location.model.LocationResponse
+import com.bgargarella.ram.data.entity.base.model.BasePageResponse
+import com.bgargarella.ram.data.entity.character.model.CharacterResponse
+import com.bgargarella.ram.data.entity.episode.model.EpisodeResponse
+import com.bgargarella.ram.data.entity.location.model.LocationResponse
+import com.bgargarella.ram.data.util.CHARACTER
+import com.bgargarella.ram.data.util.EPISODE
+import com.bgargarella.ram.data.util.LOCATION
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -11,48 +14,48 @@ import retrofit2.http.Query
 
 interface APIService {
 
-    @GET("character")
+    @GET(CHARACTER)
     suspend fun getCharacters(
-        @Query("page") page: Int,
+        @Query("page") page: Int
     ): Response<BasePageResponse<CharacterResponse>>
 
-    @GET("character/{ids}")
+    @GET("$CHARACTER/{ids}")
     suspend fun getCharacters(
-        @Path("ids") ids: String,
+        @Path("ids") ids: String
     ): Response<List<CharacterResponse>>
 
-    @GET("character/{id}")
+    @GET("$CHARACTER/{id}")
     suspend fun getCharacter(
-        @Path("id") id: Int,
+        @Path("id") id: Int
     ): Response<CharacterResponse>
 
-    @GET("episode")
+    @GET(EPISODE)
     suspend fun getEpisodes(
-        @Query("page") page: Int,
+        @Query("page") page: Int
     ): Response<BasePageResponse<EpisodeResponse>>
 
-    @GET("episode/{ids}")
+    @GET("$EPISODE/{ids}")
     suspend fun getEpisodes(
-        @Path("ids") ids: String,
+        @Path("ids") ids: String
     ): Response<List<EpisodeResponse>>
 
-    @GET("episode/{id}")
+    @GET("$EPISODE/{id}")
     suspend fun getEpisode(
-        @Path("id") id: Int,
+        @Path("id") id: Int
     ): Response<EpisodeResponse>
 
-    @GET("location")
+    @GET(LOCATION)
     suspend fun getLocations(
-        @Query("page") page: Int,
+        @Query("page") page: Int
     ): Response<BasePageResponse<LocationResponse>>
 
-    @GET("location/{ids}")
+    @GET("$LOCATION/{ids}")
     suspend fun getLocations(
-        @Path("ids") ids: String,
+        @Path("ids") ids: String
     ): Response<List<LocationResponse>>
 
-    @GET("location/{id}")
+    @GET("$LOCATION/{id}")
     suspend fun getLocation(
-        @Path("id") id: Int,
+        @Path("id") id: Int
     ): Response<LocationResponse>
 }
