@@ -33,7 +33,7 @@ class UseCaseModule {
     @Provides
     fun providesGetCharactersByEpisodeUseCase(
         characterRepository: CharacterRepository,
-        episodeRepository: EpisodeRepository,
+        episodeRepository: EpisodeRepository
     ): GetCharactersByEpisodeUseCase =
         GetCharactersByEpisodeUseCase(
             characterRepository = characterRepository,
@@ -44,7 +44,7 @@ class UseCaseModule {
     @Provides
     fun providesGetCharactersByLocationUseCase(
         characterRepository: CharacterRepository,
-        locationRepository: LocationRepository,
+        locationRepository: LocationRepository
     ): GetCharactersByLocationUseCase =
         GetCharactersByLocationUseCase(
             characterRepository = characterRepository,
@@ -69,28 +69,28 @@ class UseCaseModule {
     @Provides
     fun providesGetEpisodesByCharacterUseCase(
         characterRepository: CharacterRepository,
-        episodeRepository: EpisodeRepository,
+        episodeRepository: EpisodeRepository
     ): GetEpisodesByCharacterUseCase =
         GetEpisodesByCharacterUseCase(
             characterRepository = characterRepository,
-            episodeRepository = episodeRepository,
+            episodeRepository = episodeRepository
         )
 
     @Singleton
     @Provides
     fun providesGetEpisodeUseCase(
-        repository: EpisodeRepository,
+        repository: EpisodeRepository
     ): GetEpisodeUseCase = GetEpisodeUseCase(repository = repository)
 
     @Singleton
     @Provides
     fun providesGetLocationsUseCase(
-        repository: LocationRepository,
+        repository: LocationRepository
     ): GetLocationsUseCase = GetLocationsUseCase(repository = repository)
 
     @Singleton
     @Provides
     fun providesGetLocationUseCase(
-        repository: LocationRepository,
+        repository: LocationRepository
     ): GetLocationUseCase = GetLocationUseCase(repository = repository)
 }
