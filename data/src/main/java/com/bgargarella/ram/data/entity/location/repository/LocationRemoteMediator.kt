@@ -1,4 +1,4 @@
-package com.bgargarella.ram.data.location.repository
+package com.bgargarella.ram.data.entity.location.repository
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
@@ -7,12 +7,12 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.bgargarella.ram.data.api.APIService
-import com.bgargarella.ram.data.base.model.BasePageResponse
-import com.bgargarella.ram.data.base.repository.BaseRemoteMediator
+import com.bgargarella.ram.data.entity.base.model.BasePageResponse
+import com.bgargarella.ram.data.entity.base.repository.BaseRemoteMediator
 import com.bgargarella.ram.data.db.RamDB
-import com.bgargarella.ram.data.location.mapper.toLocationModel
-import com.bgargarella.ram.data.location.model.LocationModel
-import com.bgargarella.ram.data.location.model.LocationResponse
+import com.bgargarella.ram.data.entity.location.mapper.toModel
+import com.bgargarella.ram.data.entity.location.model.LocationModel
+import com.bgargarella.ram.data.entity.location.model.LocationResponse
 import retrofit2.Response
 
 @OptIn(ExperimentalPagingApi::class)
@@ -42,7 +42,7 @@ class LocationRemoteMediator(
                     if (loadType == REFRESH) {
                         deleteAll()
                     }
-                    saveAll(response.getResults { it.toLocationModel() })
+                    saveAll(response.getResults { it.toModel() })
                 }
             }
         }
