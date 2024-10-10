@@ -4,8 +4,8 @@ import com.bgargarella.ram.domain.base.model.BaseEntity
 
 data class Episode(
     override val id: Int,
-    val name: String,
+    override val name: String,
     val releaseDate: String,
     val code: String,
-    val characters: List<Int>,
+    val characters: List<Int>
 ) : BaseEntity
