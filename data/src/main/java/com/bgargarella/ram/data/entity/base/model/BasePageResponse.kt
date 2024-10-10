@@ -1,4 +1,4 @@
-package com.bgargarella.ram.data.base.model
+package com.bgargarella.ram.data.entity.base.model
 
 data class BasePageResponse<T>(val info: Info, val results: List<T>) {
 
