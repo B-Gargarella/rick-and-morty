@@ -1,4 +1,4 @@
-package com.bgargarella.ram.data.character.repository
+package com.bgargarella.ram.data.entity.character.repository
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
@@ -7,11 +7,11 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.bgargarella.ram.data.api.APIService
-import com.bgargarella.ram.data.base.model.BasePageResponse
-import com.bgargarella.ram.data.base.repository.BaseRemoteMediator
-import com.bgargarella.ram.data.character.mapper.toModel
-import com.bgargarella.ram.data.character.model.CharacterModel
-import com.bgargarella.ram.data.character.model.CharacterResponse
+import com.bgargarella.ram.data.entity.base.model.BasePageResponse
+import com.bgargarella.ram.data.entity.base.repository.BaseRemoteMediator
+import com.bgargarella.ram.data.entity.character.mapper.toModel
+import com.bgargarella.ram.data.entity.character.model.CharacterModel
+import com.bgargarella.ram.data.entity.character.model.CharacterResponse
 import com.bgargarella.ram.data.db.RamDB
 import retrofit2.Response
 

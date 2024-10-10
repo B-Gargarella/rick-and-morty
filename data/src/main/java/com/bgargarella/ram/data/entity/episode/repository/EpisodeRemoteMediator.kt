@@ -1,4 +1,4 @@
-package com.bgargarella.ram.data.episode.repository
+package com.bgargarella.ram.data.entity.episode.repository
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
@@ -7,12 +7,12 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.bgargarella.ram.data.api.APIService
-import com.bgargarella.ram.data.base.model.BasePageResponse
-import com.bgargarella.ram.data.base.repository.BaseRemoteMediator
+import com.bgargarella.ram.data.entity.base.model.BasePageResponse
+import com.bgargarella.ram.data.entity.base.repository.BaseRemoteMediator
 import com.bgargarella.ram.data.db.RamDB
-import com.bgargarella.ram.data.episode.mapper.toEpisodeModel
-import com.bgargarella.ram.data.episode.model.EpisodeModel
-import com.bgargarella.ram.data.episode.model.EpisodeResponse
+import com.bgargarella.ram.data.entity.episode.mapper.toModel
+import com.bgargarella.ram.data.entity.episode.model.EpisodeModel
+import com.bgargarella.ram.data.entity.episode.model.EpisodeResponse
 import retrofit2.Response
 
 @OptIn(ExperimentalPagingApi::class)
@@ -42,7 +42,7 @@ class EpisodeRemoteMediator(
                     if (loadType == REFRESH) {
                         deleteAll()
                     }
-                    saveAll(response.getResults { it.toEpisodeModel() })
+                    saveAll(response.getResults { it.toModel() })
                 }
             }
         }
