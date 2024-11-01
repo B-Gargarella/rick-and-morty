@@ -83,7 +83,7 @@ class BaseActivity : ComponentActivity() {
 
                                 val state: UiState<Character> by viewModel.uiState.collectAsState()
 
-                                LaunchedEffect(null) {
+                                LaunchedEffect(key1 = null) {
                                     viewModel.getCharactersByEpisode(id)
                                 }
 
