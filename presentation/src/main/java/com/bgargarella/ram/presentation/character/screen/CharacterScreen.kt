@@ -42,7 +42,7 @@ import com.bgargarella.ram.domain.base.model.Result
 @Composable
 fun CharacterScreen(
     navController: NavHostController,
-    id: Int,
+    id: Int
 ) {
     val viewModel: CharacterViewModel = hiltViewModel()
 

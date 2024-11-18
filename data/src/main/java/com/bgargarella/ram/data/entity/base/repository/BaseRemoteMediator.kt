@@ -4,7 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator.InitializeAction
-import androidx.paging.RemoteMediator.InitializeAction.LAUNCH_INITIAL_REFRESH
+import androidx.paging.RemoteMediator.InitializeAction.SKIP_INITIAL_REFRESH
 import androidx.paging.RemoteMediator.MediatorResult
 import androidx.paging.RemoteMediator.MediatorResult.Error
 import androidx.paging.RemoteMediator.MediatorResult.Success
@@ -22,7 +22,7 @@ interface BaseRemoteMediator<T> {
         get() = 1
 
     @OptIn(ExperimentalPagingApi::class)
-    suspend fun initialize(): InitializeAction = LAUNCH_INITIAL_REFRESH
+    suspend fun initialize(): InitializeAction = SKIP_INITIAL_REFRESH
 
     suspend fun getResponse(page: Int): Response<BasePageResponse<T>>
 

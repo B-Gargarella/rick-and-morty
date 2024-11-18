@@ -37,9 +37,8 @@ import com.bgargarella.ram.domain.base.model.Result
 @Composable
 fun LocationScreen(
     navController: NavHostController,
-    id: Int,
+    id: Int
 ) {
-
     val viewModel: LocationViewModel = hiltViewModel()
 
     val scope: CoroutineScope = rememberCoroutineScope()

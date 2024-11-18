@@ -37,9 +37,8 @@ import kotlinx.coroutines.CoroutineScope
 @Composable
 fun EpisodeScreen(
     navController: NavHostController,
-    id: Int,
+    id: Int
 ) {
-
     val viewModel: EpisodeViewModel = hiltViewModel()
 
     val scope: CoroutineScope = rememberCoroutineScope()
