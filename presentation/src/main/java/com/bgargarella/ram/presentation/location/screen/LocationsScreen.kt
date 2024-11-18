@@ -20,7 +20,7 @@ import com.bgargarella.ram.presentation.base.model.UiState
 @Composable
 fun LocationsScreen(
     navController: NavHostController,
-    state: UiState<Location>,
+    state: UiState<Location>
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         if (state.isLoading) {

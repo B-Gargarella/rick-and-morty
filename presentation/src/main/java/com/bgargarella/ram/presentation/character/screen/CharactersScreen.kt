@@ -20,7 +20,7 @@ import com.bgargarella.ram.presentation.base.model.UiState
 @Composable
 fun CharactersScreen(
     navController: NavHostController,
-    state: UiState<Character>,
+    state: UiState<Character>
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         if (state.isLoading) {
