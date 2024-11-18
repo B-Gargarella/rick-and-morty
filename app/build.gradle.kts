@@ -71,7 +71,7 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
 
     val junitVersion = rootProject.extra["junit_version"]
-    testImplementation("junit:junit:$junitVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     val extJunitVersion = rootProject.extra["ext_junit_version"]
     androidTestImplementation("androidx.test.ext:junit:$extJunitVersion")
     val espressoCoreVersion = rootProject.extra["espresso_core_version"]
