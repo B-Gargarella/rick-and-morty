@@ -10,6 +10,14 @@
     <string name="locations">Locations</string>
     <string name="location">Location</string>
 
+    <string name="character_label">Character: %1$s</string>
+    <string name="episode_label">Episode: %1$s</string>
+    <string name="location_label">Location: %1$s</string>
+
+    <string name="episodes_from_character">Episodes from Character: %1$s</string>
+    <string name="characters_from_episode">Characters from Episode: %1$s</string>
+    <string name="characters_from_location">Characters from Location: %1$s</string>
+
     <string name="name">Name</string>
     <string name="status">Status</string>
     <string name="species">Species</string>
