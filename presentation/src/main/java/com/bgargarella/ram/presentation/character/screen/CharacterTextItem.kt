@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.bgargarella.ram.domain.character.model.Character
 import com.bgargarella.ram.presentation.base.model.BaseItem
 import com.bgargarella.ram.presentation.base.screen.RowDivider
+import com.bgargarella.ram.presentation.theme.Grey_989fb3
 import com.bgargarella.ram.presentation.util.getCharacterItemsTest
 import com.bgargarella.ram.presentation.util.getItemsList
 
@@ -56,7 +57,7 @@ fun CharacterTextItem(
                 ),
                 text = stringResource(info.titleId),
                 textAlign = TextAlign.Start,
-                color = Color(0xFF989FB3),
+                color = Grey_989fb3
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(

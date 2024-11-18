@@ -7,20 +7,24 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.bgargarella.ram.presentation.R
+import androidx.compose.ui.unit.sp
 import com.bgargarella.ram.domain.character.model.Character
+import com.bgargarella.ram.presentation.R
+import com.bgargarella.ram.presentation.theme.Grey_989fb3
 import com.bgargarella.ram.presentation.util.getCharacterItemsTest
 
 @Composable
@@ -37,13 +41,20 @@ fun CharacterHeader(entity: Character) {
         }
         Spacer(modifier = Modifier.height(padding))
         Text(
-            modifier = Modifier
-                .width(size)
-                .wrapContentHeight(),
+            modifier = Modifier.width(size).wrapContentHeight(),
+            maxLines = 1,
+            style = TextStyle(
+                fontFamily = FontFamily.SansSerif,
+                fontWeight = FontWeight.Bold,
+                fontSize = 14.sp,
+                lineHeight = 20.sp,
+                letterSpacing = 0.2.sp,
+                textDecoration = TextDecoration.None,
+                textAlign = TextAlign.Center
+            ),
             text = entity.name,
             textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Bold,
-            style = MaterialTheme.typography.bodyMedium,
+            color = Grey_989fb3
         )
     }
 }
