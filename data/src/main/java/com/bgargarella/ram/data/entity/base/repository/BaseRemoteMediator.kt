@@ -28,7 +28,7 @@ interface BaseRemoteMediator<T> {
 
     suspend fun saveResponse(
         loadType: LoadType,
-        response: Response<BasePageResponse<T>>,
+        response: Response<BasePageResponse<T>>
     )
 
     fun <T, V> Response<BasePageResponse<T>>?.getResults(action: (T) -> V): List<V> =
@@ -47,9 +47,7 @@ interface BaseRemoteMediator<T> {
     }
 
     @OptIn(ExperimentalPagingApi::class)
-    suspend fun getMediatorResult(
-        action: suspend () -> Boolean,
-    ): MediatorResult =
+    suspend fun getMediatorResult(action: suspend () -> Boolean): MediatorResult =
         try {
             Success(endOfPaginationReached = action())
         } catch (e: SocketTimeoutException) {
@@ -67,7 +65,7 @@ interface BaseRemoteMediator<T> {
     @OptIn(ExperimentalPagingApi::class)
     suspend fun <T : BaseModel> loadMediatorResult(
         loadType: LoadType,
-        state: PagingState<Int, T>,
+        state: PagingState<Int, T>
     ): MediatorResult {
         val page = when (loadType) {
             LoadType.REFRESH -> startPageIndex

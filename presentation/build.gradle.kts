@@ -1,24 +1,22 @@
 import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
 
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.compose")
-    id("com.google.devtools.ksp")
-    id("dagger.hilt.android.plugin")
+    id(libs.plugins.com.android.library.get().pluginId)
+    id(libs.plugins.org.jetbrains.kotlin.android.get().pluginId)
+    id(libs.plugins.org.jetbrains.kotlin.plugin.compose.get().pluginId)
+    id(libs.plugins.com.google.devtools.ksp.get().pluginId)
+    id(libs.plugins.dagger.hilt.android.plugin.get().pluginId)
 }
 
 android {
-    apply(from = "../versions.gradle")
-
-    namespace = "com.bgargarella.ram.presentation"
-    compileSdk = extra["compile_sdk_version"] as Int
+    namespace = "${libs.versions.packageName.get()}.presentation"
+    compileSdk = libs.versions.compile.sdk.version.get().toInt()
 
     defaultConfig {
-        minSdk = extra["min_sdk_version"] as Int
+        minSdk = libs.versions.min.sdk.version.get().toInt()
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+        testInstrumentationRunner = libs.versions.test.instrumentation.runner.get()
+        consumerProguardFiles(libs.versions.consumer.rules.get())
 
         buildFeatures {
             compose = true
@@ -38,13 +36,13 @@ android {
         release {
             isMinifyEnabled = true
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile(libs.versions.proguard.android.optimize.get()),
+                libs.versions.proguard.rules.get()
             )
         }
     }
 
-    val javaVersion = extra["java_version"] as JavaVersion
+    val javaVersion = JavaVersion.toVersion(libs.versions.java.version.get())
 
     compileOptions {
         sourceCompatibility = javaVersion
@@ -55,32 +53,20 @@ android {
         jvmTarget = javaVersion.toString()
     }
 
-    buildToolsVersion = extra["build_tools_version"] as String
+    buildToolsVersion = libs.versions.build.tools.version.get()
 }
 
 dependencies {
     implementation(project(":domain"))
 
-    val daggerHiltVersion = rootProject.extra["dagger_hilt_version"]
-    implementation("com.google.dagger:hilt-android:$daggerHiltVersion")
-    ksp("com.google.dagger:hilt-android-compiler:$daggerHiltVersion")
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    implementation(libs.navigation)
+    implementation(libs.hilt.navigation)
+    implementation(libs.paging)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.tooling)
 
-    val navigationVersion = rootProject.extra["navigation_version"]
-    implementation("androidx.navigation:navigation-compose:$navigationVersion")
-
-    val hiltNavigationVersion = rootProject.extra["hilt_navigation_version"]
-    implementation("androidx.hilt:hilt-navigation-compose:$hiltNavigationVersion")
-
-    val pagingVersion = rootProject.extra["paging_version"]
-    implementation("androidx.paging:paging-compose:$pagingVersion")
-
-    val composeVersion = rootProject.extra["compose_version"]
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
-
-    val material3Version = rootProject.extra["material3_version"]
-    implementation("androidx.compose.material3:material3:$material3Version")
-
-    val coilVersion = rootProject.extra["coil_version"]
-    implementation("io.coil-kt:coil-compose:$coilVersion")
+    implementation(libs.material3)
+    implementation(libs.coil)
 }

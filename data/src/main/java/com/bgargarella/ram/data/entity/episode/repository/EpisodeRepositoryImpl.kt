@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.map
 class EpisodeRepositoryImpl(
     @ApplicationContext private val context: Context,
     private val db: RamDB,
-    private val service: APIService,
+    private val service: APIService
 ) : BaseRepositoryImpl(context), EpisodeRepository {
 
     override fun getEpisode(id: Int): Flow<Result<Episode>> =
@@ -29,7 +29,7 @@ class EpisodeRepositoryImpl(
             getRemote = { service.getEpisode(id) },
             getData = { it.toModel() },
             saveLocal = db.episodeDao()::save,
-            getDomain = { it.toEntity() },
+            getDomain = { it.toEntity() }
         )
 
     @OptIn(ExperimentalPagingApi::class)
@@ -38,7 +38,7 @@ class EpisodeRepositoryImpl(
             config = pagingConfig,
             remoteMediator = EpisodeRemoteMediator(
                 db = db,
-                service = service,
+                service = service
             ),
             pagingSourceFactory = { db.episodeDao().getAll() }
         ).flow.map { pagingData ->

@@ -18,7 +18,7 @@ import retrofit2.Response
 @OptIn(ExperimentalPagingApi::class)
 class EpisodeRemoteMediator(
     private val db: RamDB,
-    private val service: APIService,
+    private val service: APIService
 ) : RemoteMediator<Int, EpisodeModel>(), BaseRemoteMediator<EpisodeResponse> {
 
     override suspend fun initialize(): InitializeAction =
@@ -26,7 +26,7 @@ class EpisodeRemoteMediator(
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, EpisodeModel>,
+        state: PagingState<Int, EpisodeModel>
     ): MediatorResult = loadMediatorResult(loadType, state)
 
     override suspend fun getResponse(page: Int): Response<BasePageResponse<EpisodeResponse>> =
@@ -34,7 +34,7 @@ class EpisodeRemoteMediator(
 
     override suspend fun saveResponse(
         loadType: LoadType,
-        response: Response<BasePageResponse<EpisodeResponse>>,
+        response: Response<BasePageResponse<EpisodeResponse>>
     ) {
         db.apply {
             withTransaction {

@@ -1,19 +1,17 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id(libs.plugins.com.android.library.get().pluginId)
+    id(libs.plugins.org.jetbrains.kotlin.android.get().pluginId)
 }
 
 android {
-    apply(from = "../versions.gradle")
-
-    namespace = "com.bgargarella.ram.domain"
-    compileSdk = extra["compile_sdk_version"] as Int
+    namespace = "${libs.versions.packageName.get()}.domain"
+    compileSdk = libs.versions.compile.sdk.version.get().toInt()
 
     defaultConfig {
-        minSdk = extra["min_sdk_version"] as Int
+        minSdk = libs.versions.min.sdk.version.get().toInt()
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+        testInstrumentationRunner = libs.versions.test.instrumentation.runner.get()
+        consumerProguardFiles(libs.versions.consumer.rules.get())
 
         buildFeatures {
             buildConfig = true
@@ -29,13 +27,13 @@ android {
             isMinifyEnabled = true
             buildConfigField("String", "BASE_URL", "\"https://rickandmortyapi.com/api/\"")
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile(libs.versions.proguard.android.optimize.get()),
+                libs.versions.proguard.rules.get()
             )
         }
     }
 
-    val javaVersion = extra["java_version"] as JavaVersion
+    val javaVersion = JavaVersion.toVersion(libs.versions.java.version.get())
 
     compileOptions {
         sourceCompatibility = javaVersion
@@ -46,10 +44,9 @@ android {
         jvmTarget = javaVersion.toString()
     }
 
-    buildToolsVersion = extra["build_tools_version"] as String
+    buildToolsVersion = libs.versions.build.tools.version.get()
 }
 
 dependencies {
-    val pagingVersion = rootProject.extra["paging_version"]
-    implementation("androidx.paging:paging-compose:$pagingVersion")
+    implementation(libs.paging)
 }

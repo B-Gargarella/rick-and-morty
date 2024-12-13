@@ -12,7 +12,7 @@ fun LocationResponse.toModel(): LocationModel =
         name = name,
         type = type.getValue(),
         dimension = dimension.getValue(),
-        residents = residents.map { it.getIdFromCharacter() },
+        residents = residents.map { it.getIdFromCharacter() }
     )
 
 fun LocationModel.toEntity(): Location =
@@ -21,5 +21,5 @@ fun LocationModel.toEntity(): Location =
         name = name,
         type = type,
         dimension = dimension,
-        residents = residents,
+        residents = residents
     )

@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.map
 class LocationRepositoryImpl(
     @ApplicationContext private val context: Context,
     private val db: RamDB,
-    private val service: APIService,
+    private val service: APIService
 ) : BaseRepositoryImpl(context), LocationRepository {
 
     override fun getLocation(id: Int): Flow<Result<Location>> =
@@ -29,7 +29,7 @@ class LocationRepositoryImpl(
             getRemote = { service.getLocation(id) },
             getData = { it.toModel() },
             saveLocal = db.locationDao()::save,
-            getDomain = { it.toEntity() },
+            getDomain = { it.toEntity() }
         )
 
     @OptIn(ExperimentalPagingApi::class)
@@ -38,7 +38,7 @@ class LocationRepositoryImpl(
             config = pagingConfig,
             remoteMediator = LocationRemoteMediator(
                 db = db,
-                service = service,
+                service = service
             ),
             pagingSourceFactory = { db.locationDao().getAll() }
         ).flow.map { pagingData ->

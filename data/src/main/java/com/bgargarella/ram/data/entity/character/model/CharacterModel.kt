@@ -16,5 +16,5 @@ data class CharacterModel(
     val gender: String?,
     val origin: CharacterLocationModel?,
     val location: CharacterLocationModel?,
-    val episodes: List<Int>,
+    val episodes: List<Int>
 ) : BaseModel

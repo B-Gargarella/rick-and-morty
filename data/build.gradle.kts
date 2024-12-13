@@ -1,20 +1,18 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
+    id(libs.plugins.com.android.library.get().pluginId)
+    id(libs.plugins.org.jetbrains.kotlin.android.get().pluginId)
+    id(libs.plugins.com.google.devtools.ksp.get().pluginId)
 }
 
 android {
-    apply(from = "../versions.gradle")
-
-    namespace = "com.bgargarella.ram.data"
-    compileSdk = extra["compile_sdk_version"] as Int
+    namespace = "${libs.versions.packageName.get()}.data"
+    compileSdk = libs.versions.compile.sdk.version.get().toInt()
 
     defaultConfig {
-        minSdk = extra["min_sdk_version"] as Int
+        minSdk = libs.versions.min.sdk.version.get().toInt()
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+        testInstrumentationRunner = libs.versions.test.instrumentation.runner.get()
+        consumerProguardFiles(libs.versions.consumer.rules.get())
     }
 
     buildTypes {
@@ -24,13 +22,13 @@ android {
         release {
             isMinifyEnabled = true
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile(libs.versions.proguard.android.optimize.get()),
+                libs.versions.proguard.rules.get()
             )
         }
     }
 
-    val javaVersion = extra["java_version"] as JavaVersion
+    val javaVersion = JavaVersion.toVersion(libs.versions.java.version.get())
 
     compileOptions {
         sourceCompatibility = javaVersion
@@ -41,7 +39,7 @@ android {
         jvmTarget = javaVersion.toString()
     }
 
-    buildToolsVersion = extra["build_tools_version"] as String
+    buildToolsVersion = libs.versions.build.tools.version.get()
 
     ksp {
         arg(k = "room.schemaLocation", v = "$projectDir/schemas")
@@ -52,17 +50,10 @@ android {
 dependencies {
     implementation(project(":domain"))
 
-    val daggerHiltVersion = rootProject.extra["dagger_hilt_version"]
-    implementation("com.google.dagger:hilt-android:$daggerHiltVersion")
-
-    val retrofitVersion = rootProject.extra["retrofit_version"]
-    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
-
-    val moshiKotlinVersion = rootProject.extra["moshi_kotlin_version"]
-    implementation("com.squareup.moshi:moshi-kotlin:$moshiKotlinVersion")
-
-    val roomVersion = rootProject.extra["room_version"]
-    implementation("androidx.room:room-ktx:$roomVersion")
-    implementation("androidx.room:room-paging:$roomVersion")
-    ksp("androidx.room:room-compiler:$roomVersion")
+    implementation(libs.hilt.android)
+    implementation(libs.retrofit)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.room.ktx)
+    implementation(libs.room.paging)
+    ksp(libs.room.compiler)
 }

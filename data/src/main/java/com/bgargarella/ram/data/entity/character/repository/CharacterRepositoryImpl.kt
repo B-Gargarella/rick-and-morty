@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.map
 class CharacterRepositoryImpl(
     @ApplicationContext private val context: Context,
     private val db: RamDB,
-    private val service: APIService,
+    private val service: APIService
 ) : BaseRepositoryImpl(context), CharacterRepository {
 
     override fun getCharacter(id: Int): Flow<Result<Character>> =
@@ -29,7 +29,7 @@ class CharacterRepositoryImpl(
             getRemote = { service.getCharacter(id) },
             getData = { it.toModel() },
             saveLocal = db.characterDao()::save,
-            getDomain = { it.toEntity() },
+            getDomain = { it.toEntity() }
         )
 
     @OptIn(ExperimentalPagingApi::class)
@@ -38,7 +38,7 @@ class CharacterRepositoryImpl(
             config = pagingConfig,
             remoteMediator = CharacterRemoteMediator(
                 db = db,
-                service = service,
+                service = service
             ),
             pagingSourceFactory = { db.characterDao().getAll() }
         ).flow.map { pagingData ->

@@ -1,0 +1,89 @@
+[versions]
+
+# CORE VERSIONS
+packageName = "com.bgargarella.ram"
+android-version = "8.7.3"
+kotlin-version = "2.1.0"
+ksp-version = "2.1.0-1.0.29"
+# javaVersion = JavaVersion.VERSION-17
+java-version = "17"
+compile-sdk-version = "35"
+min-sdk-version = "24"
+target-sdk-version = "35"
+build-tools-version = "35.0.0"
+test-instrumentation-runner = "androidx.test.runner.AndroidJUnitRunner"
+consumer-rules = "consumer-rules.pro"
+proguard-rules = "proguard-rules.pro"
+proguard-android-optimize = "proguard-android-optimize.txt"
+
+# TOOLS VERSIONS
+dagger-hilt-version = "2.53.1"
+retrofit-version = "2.11.0"
+okhttp3-version = "4.12.0"
+moshi-kotlin-version = "1.15.2"
+room-version = "2.6.1"
+
+# COMPOSE VERSIONS
+compose-version = "1.7.6"
+navigation-version = "2.8.5"
+paging-version = "3.3.5"
+hilt-navigation-version = "1.2.0"
+coil-version = "2.7.0"
+material3-version = "1.3.1"
+
+# TESTING VERSIONS
+junit-version = "5.11.3"
+ext-junit-version = "1.2.1"
+espresso-core-version = "3.6.1"
+kotlinx-coroutines-test-version = "1.9.0"
+
+[libraries]
+gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "android-version" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin-version" }
+
+hilt-android-gradle-plugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "dagger-hilt-version" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "dagger-hilt-version" }
+hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "dagger-hilt-version" }
+
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit-version" }
+converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit-version" }
+
+converter-okhttp3 = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3-version" }
+
+moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi-kotlin-version" }
+
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room-version" }
+room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room-version" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room-version" }
+
+junit = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit-version" }
+
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "ext-junit-version" }
+
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core-version" }
+
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test-version" }
+
+paging = { group = "androidx.paging", name = "paging-compose", version.ref = "paging-version" }
+
+navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-version" }
+
+hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-version" }
+
+compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose-version" }
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose-version" }
+
+material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3-version" }
+
+coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil-version" }
+
+[plugins]
+com-android-application = { id = "com.android.application", version.ref = "android-version" }
+com-android-library = { id = "com.android.library", version.ref = "android-version" }
+org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-version" }
+org-jetbrains-kotlin-plugin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin-version" }
+com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp-version" }
+com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "dagger-hilt-version" }
+dagger-hilt-android-plugin = { id = "dagger.hilt.android.plugin", version.ref = "dagger-hilt-version" }
+
+[bundles]

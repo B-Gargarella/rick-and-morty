@@ -31,7 +31,7 @@ open class BaseRepositoryImpl(@ApplicationContext private val context: Context) 
         getRemote: suspend () -> Response<T>,
         getData: (T) -> V,
         saveLocal: (V) -> Unit,
-        getDomain: (V) -> W,
+        getDomain: (V) -> W
     ): Flow<Result<W>> =
         flow {
             emit(Loading())

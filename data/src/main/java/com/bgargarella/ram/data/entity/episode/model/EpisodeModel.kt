@@ -11,5 +11,5 @@ data class EpisodeModel(
     override val name: String,
     val releaseDate: String,
     val code: String,
-    val characters: List<Int>,
+    val characters: List<Int>
 ) : BaseModel

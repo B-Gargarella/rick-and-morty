@@ -11,5 +11,5 @@ data class LocationModel(
     override val name: String,
     val type: String?,
     val dimension: String?,
-    val residents: List<Int>,
+    val residents: List<Int>
 ) : BaseModel
