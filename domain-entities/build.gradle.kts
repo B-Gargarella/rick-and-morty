@@ -1,22 +1,19 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
 }
 
 android {
-    namespace = libs.versions.packageName.get()
+    namespace = "${libs.versions.packageName.get()}.domain.entities"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = libs.versions.packageName.get()
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = libs.versions.versionCode.get().toInt()
-        versionName = libs.versions.versionName.get()
 
         testInstrumentationRunner = libs.versions.testInstrumentationRunner.get()
+        consumerProguardFiles(libs.versions.consumerRulesPro.get())
     }
 
     buildTypes {
@@ -44,15 +41,4 @@ android {
             jvmTarget = JvmTarget.fromTarget(javaVersionValue)
         }
     }
-}
-
-dependencies {
-    implementation(project(":domain-entities"))
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

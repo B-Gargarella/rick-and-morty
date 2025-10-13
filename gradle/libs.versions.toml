@@ -8,6 +8,7 @@ versionName = "1.0.0"
 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 proguardAndroidOptimize = "proguard-android-optimize.txt"
 proguardRulesPro = "proguard-rules.pro"
+consumerRulesPro = "consumer-rules.pro"
 javaVersion = "17"
 
 agp = "8.13.0"
@@ -29,4 +30,5 @@ material = { group = "com.google.android.material", name = "material", version.r
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
