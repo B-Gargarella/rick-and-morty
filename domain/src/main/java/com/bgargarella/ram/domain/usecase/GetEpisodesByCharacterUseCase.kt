@@ -1,13 +1,13 @@
 package com.bgargarella.ram.domain.usecase
 
 import com.bgargarella.ram.domain.entities.Episode
-import com.bgargarella.ram.domain.model.Result
-import com.bgargarella.ram.domain.repository.InfoRepository
+import com.bgargarella.ram.domain.repository.BaseEntityAttributesRepository
+import kotlinx.coroutines.flow.Flow
 
 class GetEpisodesByCharacterUseCase(
-    private val repository: InfoRepository
+    private val repository: BaseEntityAttributesRepository<Episode>
 ) {
 
-    suspend operator fun invoke(id: Int): Result<List<Episode>> =
-        repository.getCharacterEpisodes(id = id)
+    suspend operator fun invoke(id: Int): Flow<List<Episode>> =
+        repository.getEntityAttributes(id = id)
 }
