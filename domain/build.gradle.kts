@@ -49,4 +49,14 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Add the core coroutines library, which includes Flow
+    // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:VERSION_HERE")
+
+    // If you are using this module in an Android project (highly recommended)
+    // You should also include the android-specific library for the Main dispatcher, etc.
+    // This often *transitively* includes the core library, but adding both doesn't hurt.
+    // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:VERSION_HERE")
+
+    implementation(libs.kotlinx.coroutines.core)
 }

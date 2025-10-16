@@ -1,30 +1,33 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
 }
 
 android {
-    namespace = libs.versions.packageName.get()
+    namespace = "${libs.versions.packageName.get()}.data"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = libs.versions.packageName.get()
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = libs.versions.versionCode.get().toInt()
-        versionName = libs.versions.versionName.get()
 
         testInstrumentationRunner = libs.versions.testInstrumentationRunner.get()
+        consumerProguardFiles(libs.versions.consumerRulesPro.get())
+
+        buildFeatures {
+            buildConfig = true
+        }
     }
 
     buildTypes {
         debug {
             isMinifyEnabled = false
+            buildConfigField("String", "BASE_URL", "\"https://rickandmortyapi.com/api/\"")
         }
         release {
             isMinifyEnabled = true
+            buildConfigField("String", "BASE_URL", "\"https://rickandmortyapi.com/api/\"")
             proguardFiles(
                 getDefaultProguardFile(libs.versions.proguardAndroidOptimize.get()),
                 libs.versions.proguardRulesPro.get()
@@ -47,7 +50,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":domain-entities"))
 
@@ -57,4 +59,13 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.androidx.core.ktx)
+
+    implementation(libs.room.runtime)
+
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+
+    implementation(libs.kotlinx.serialization.json)
 }
