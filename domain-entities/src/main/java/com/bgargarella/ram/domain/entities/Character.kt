@@ -11,10 +11,4 @@ data class Character(
     val origin: CharacterLocation?,
     val location: CharacterLocation?,
     val episodes: List<Int>
-) : BaseEntity {
-
-    data class CharacterLocation(
-        override val id: Int,
-        override val name: String
-    ) : BaseEntity
-}
+) : BaseModel

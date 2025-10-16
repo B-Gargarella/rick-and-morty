@@ -6,4 +6,4 @@ data class Episode(
     val releaseDate: String,
     val code: String,
     val characters: List<Int>
-) : BaseEntity
+) : BaseModel
